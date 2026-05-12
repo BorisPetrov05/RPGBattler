@@ -49,10 +49,10 @@
     <ClCompile Include="Shop.cpp">
       <Filter>core\cpp</Filter>
     </ClCompile>
-    <ClCompile Include="String.cpp">
+    <ClCompile Include="MyString.hpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="Vector.cpp">
+    <ClCompile Include="MyVector.hpp">
       <Filter>utils</Filter>
     </ClCompile>
     <ClCompile Include="GameEngine.cpp">
@@ -86,12 +86,6 @@
     </ClInclude>
     <ClInclude Include="Battle.h">
       <Filter>core\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="String.h">
-      <Filter>utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.h">
-      <Filter>utils</Filter>
     </ClInclude>
     <ClInclude Include="GameEngine.h">
       <Filter>system</Filter>
