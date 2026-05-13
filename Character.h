@@ -23,19 +23,17 @@ private:
 	int maxDamage;
 
 public:
-	Character();
-	Character(const MyString& name, CharacterType type, int maxHP, int level, int minDamage, int maxDamage);
-	Character(const Character& other);
-	Character(Character&& other) noexcept;
+	Character(const MyString& name, int maxHP, int minDamage, int maxDamage, int level = 1);
+	virtual ~Character() = default;
 
-	int attack() const;
+	virtual int attack() const;
 	void takeDamage(int amount);
 	void heal(int amount);
 	void resetHP();
 	bool isAlive() const;
 	void levelUp(int choice);
-	void UseAbility() const;
-	void clone() const;
+	virtual void UseAbility(int& damage);
+	virtual Character* clone() const;
 
 	MyString getName() const;
 	CharacterType getType() const;
