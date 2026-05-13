@@ -1,5 +1,4 @@
 #include "GameEngine.h"
-#include "MyString.cpp"
 
 void GameEngine::run() const
 {
