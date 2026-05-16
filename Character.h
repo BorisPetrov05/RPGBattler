@@ -35,7 +35,7 @@ public:
 	virtual void UseAbility(int& damage);
 	virtual Character* clone() const;
 
-	MyString getName() const;
+	const MyString& getName() const;
 	CharacterType getType() const;
 	int getMaxHP() const;
 	int getCurrentHP() const;
