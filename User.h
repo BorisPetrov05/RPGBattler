@@ -10,6 +10,7 @@ private:
 	MyString password;
 	int xp;
 	int battlesFought;
+	int battlesWon;
 	MyVector<Character*> characters;
 	MyVector<Item*> items;
 
@@ -49,4 +50,6 @@ public:
 	bool checkPassword(const MyString& password) const;
 
 	void printProfile() const;
+	void free();
+	void copyFrom(const User& other);
  };

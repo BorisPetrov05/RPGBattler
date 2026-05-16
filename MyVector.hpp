@@ -151,6 +151,7 @@ private:
         m_capacity = new_cap;
     }
 
+public:
     void clear()
     {
         for (size_t i = 0; i < m_size; ++i)
