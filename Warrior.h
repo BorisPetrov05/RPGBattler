@@ -8,7 +8,7 @@ class Warrior : public Character
 	//Level = 1
 	//Ability: Reduces damage by a random value between 1 and 4.
 public:
-	Warrior(const MyString& name = "Warrior", const CharacterType& type = CharacterType::Warrior);
+	Warrior(const MyString& name);
 
 	virtual void UseAbility(int& damage) override;
 	virtual Character* clone() const override;
