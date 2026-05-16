@@ -8,10 +8,6 @@ Character::Character(const MyString& name, int maxHP, int minDamage, int maxDama
 {
 }
 
-Character::~Character()
-{
-}
-
 //Battle and HP
 
 int Character::attack() const

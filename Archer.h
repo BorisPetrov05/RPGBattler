@@ -8,7 +8,7 @@ class Archer : public Character
 	//Level = 1
 	//Ability: Double Damage: Archer can choose to double the damage of his attack if the attack damage is less than or equal to 4.
 public:
-	Archer(const MyString& name = "Archer", const CharacterType& type = CharacterType::Archer);
+	Archer(const MyString& name);
 
 	virtual void UseAbility(int& damage) override;
 	virtual Character* clone() const override;
