@@ -80,6 +80,11 @@ const MyString& Character::getName() const
 	return name;
 }
 
+CharacterType Character::getType() const
+{
+	return type;
+}
+
 int Character::getMaxHP() const
 {
 	return maxHP;
