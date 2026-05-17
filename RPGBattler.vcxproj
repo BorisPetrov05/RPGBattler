@@ -130,12 +130,17 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="HealingPotion.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Leaderboard.cpp" />
     <ClCompile Include="Mage.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mirror.cpp" />
+    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="Shield.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="MyString.hpp" />
+    <ClCompile Include="Sword.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="User.h" />
     <ClCompile Include="MyVector.hpp" />
@@ -144,13 +149,19 @@
   <ItemGroup>
     <ClInclude Include="Archer.h" />
     <ClInclude Include="Battle.h" />
+    <ClInclude Include="BattleContext.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="HealingPotion.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Leaderboard.h" />
     <ClInclude Include="Mage.h" />
+    <ClInclude Include="Mirror.h" />
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="Shield.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="Sword.h" />
     <ClInclude Include="Warrior.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -16,6 +16,12 @@
     <Filter Include="core\cpp">
       <UniqueIdentifier>{17c2fd47-a978-4561-adc8-112bc40dd20d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="core\cpp\Items">
+      <UniqueIdentifier>{68e551b3-358e-48ed-8235-d7a0d23bfa2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\headers\Items">
+      <UniqueIdentifier>{ca7554f3-9326-458a-bd31-c2746aa48c9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -61,6 +67,21 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>system</Filter>
     </ClCompile>
+    <ClCompile Include="HealingPotion.cpp">
+      <Filter>core\cpp\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword.cpp">
+      <Filter>core\cpp\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Mirror.cpp">
+      <Filter>core\cpp\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>core\cpp\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Shield.cpp">
+      <Filter>core\cpp\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -92,6 +113,24 @@
     </ClInclude>
     <ClInclude Include="FileManager.h">
       <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="HealingPotion.h">
+      <Filter>core\headers\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword.h">
+      <Filter>core\headers\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleContext.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Mirror.h">
+      <Filter>core\headers\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>core\headers\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Shield.h">
+      <Filter>core\headers\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
