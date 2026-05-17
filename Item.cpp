@@ -9,11 +9,6 @@ void Item::use(Character& user, Character& enemy, BattleContext& context)
 	//do nothing
 }
 
-Item* Item::clone() const
-{
-	//do nothing
-}
-
 const MyString& Item::getName() const
 {
 	return name;
