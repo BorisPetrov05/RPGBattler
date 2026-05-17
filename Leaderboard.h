@@ -6,8 +6,9 @@ class Leaderboard
 private:
 	MyVector <User*> users;
 
+	bool shouldComeBefore(const User* lhs, const User* rhs) const;
 public:
-	void update(MyVector<User*>& allUsers);
 	void sort();
+	void update(MyVector<User*>& allUsers);
 	void display() const;
 };
