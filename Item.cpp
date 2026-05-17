@@ -4,7 +4,7 @@ Item::Item(const MyString& name, int cost) : name(name), cost(cost)
 {
 }
 
-void Item::use(Character& user, Character& enemy)
+void Item::use(Character& user, Character& enemy, BattleContext& context)
 {
 	//do nothing
 }
