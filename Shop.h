@@ -8,8 +8,6 @@ public:
 	void buyItem(User& user);
 	void buyLevelUp(User& user);
 
-	void showCharacters() const;
-	void showItems() const;
-	void showMenu(User& user) const;
+	void showMenu(User& user);
 
 };

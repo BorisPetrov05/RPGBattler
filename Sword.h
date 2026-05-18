@@ -4,6 +4,7 @@
 class Sword : public Item
 {
 	//cost 50XP, double damage
+public:
 	Sword();
 	virtual ~Sword() = default;
 	void use(Character& user, Character& enemy, BattleContext& context) override;
