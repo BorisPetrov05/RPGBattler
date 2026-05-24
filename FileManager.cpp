@@ -16,12 +16,32 @@
 #include "Sword.h"
 
 const char* FileManager::USERS_FILE = "users.dat";
+const char* FileManager::STATE_FILE = "state.dat";
 
 void FileManager::saveString(std::ofstream& out, const MyString& str)
 {
 	size_t length = str.length();
 	out.write(reinterpret_cast<const char*>(&length), sizeof(length));
 	out.write(str.c_str(), length);
+}
+
+void FileManager::saveState(const MyString& activeUsername, const MyString& activeCharacter)
+{
+	std::ofstream ofs(STATE_FILE, std::ios::binary);
+	if (!ofs.is_open()) return;
+
+	saveString(ofs, activeUsername);
+	saveString(ofs, activeCharacter);
+}
+
+bool FileManager::loadState(MyString& activeUsername, MyString& activeCharacter)
+{
+	std::ifstream ifs(STATE_FILE, std::ios::binary);
+	if (!ifs.is_open()) return false;
+
+	loadString(ifs, activeUsername);
+	loadString(ifs, activeCharacter);
+	return true;
 }
 
 void FileManager::loadString(std::ifstream& in, MyString& str)

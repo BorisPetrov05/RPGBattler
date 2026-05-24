@@ -10,6 +10,7 @@ class FileManager
 {
 private:
 	static const char* USERS_FILE;
+	static const char* STATE_FILE;
 
 	static void saveString(std::ofstream& out, const MyString& str);
 	static void loadString(std::ifstream& in, MyString& str);
@@ -26,4 +27,7 @@ private:
 public:
 	static void saveUsers(const MyVector<User*>& users);
 	static MyVector<User*> loadUsers();
+
+	static void saveState(const MyString& activeUsername, const MyString& activeCharacter);
+	static bool loadState(MyString& activeUsername, MyString& activeCharacter);
 };

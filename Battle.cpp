@@ -257,7 +257,7 @@ void Battle::start()
 	}
 	else
 	{
-		std::println("The battle ended in a draw!");
+		std::println("The battle ended in a draw!"); //most likely wont happen but just in case
 	}
 
 	User* loser = nullptr;
