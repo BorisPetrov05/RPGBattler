@@ -3,8 +3,8 @@
 
 //Constructors and Destructor
 
-Character::Character(const MyString& name, int maxHP, int minDamage, int maxDamage, int level)
-	: name(name), maxHP(maxHP), currentHP(maxHP), minDamage(minDamage), maxDamage(maxDamage), level(level)
+Character::Character(const MyString& name, CharacterType type, int maxHP, int minDamage, int maxDamage, int level)
+	: name(name), type(type), maxHP(maxHP), currentHP(maxHP), minDamage(minDamage), maxDamage(maxDamage), level(level)
 {
 }
 

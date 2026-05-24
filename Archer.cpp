@@ -2,7 +2,7 @@
 #include <print>
 #include <iostream>
 
-Archer::Archer(const MyString& name) : Character(name, 15, 1, 8)
+Archer::Archer(const MyString& name) : Character(name, CharacterType::Archer, 15, 1, 8)
 {
 
 }

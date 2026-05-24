@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <print>
 
-Warrior::Warrior(const MyString& name) : Character(name, 20, 1, 8)
+Warrior::Warrior(const MyString& name) : Character(name, CharacterType::Warrior, 20, 1, 8)
 {
 }
 

@@ -23,7 +23,7 @@ private:
 	int maxDamage;
 
 public:
-	Character(const MyString& name, int maxHP, int minDamage, int maxDamage, int level = 1);
+	Character(const MyString& name, CharacterType type, int maxHP, int minDamage, int maxDamage, int level = 1);
 	virtual ~Character() = default;
 
 	virtual int attack() const;

@@ -2,7 +2,7 @@
 #include <print>
 #include <iostream>
 
-Mage::Mage(const MyString& name) : Character(name, 12, 1, 12)
+Mage::Mage(const MyString& name) : Character(name, CharacterType::Mage, 12, 1, 12)
 {
 }
 
