@@ -9,4 +9,5 @@ public:
 	virtual ~Mirror() = default;
 	void use(Character& user, Character& enemy, BattleContext& context) override;
 	Item* clone() const override;
+	MyString getTypeName() const override { return "Mirror"; }
 };

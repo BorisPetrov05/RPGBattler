@@ -11,6 +11,7 @@ public:
 	Archer(const MyString& name);
 
 	virtual void UseAbility(int& damage) override;
+	virtual MyString getTypeName() const override { return "Archer"; }
 	virtual Character* clone() const override;
 
 };

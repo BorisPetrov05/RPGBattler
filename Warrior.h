@@ -12,5 +12,6 @@ public:
 
 	virtual void UseAbility(int& damage) override;
 	virtual Character* clone() const override;
+	virtual MyString getTypeName() const override { return "Warrior"; }
 
 };

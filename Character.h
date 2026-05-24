@@ -33,7 +33,7 @@ public:
 	bool isAlive() const;
 	void levelUp(int choice);
 	virtual void UseAbility(int& damage);
-	virtual Character* clone() const;
+	virtual Character* clone() const = 0;
 
 	const MyString& getName() const;
 	CharacterType getType() const;
@@ -42,5 +42,11 @@ public:
 	int getLevel() const;
 	int getMinDamage() const;
 	int getMaxDamage() const;
+	virtual MyString getTypeName() const = 0;
 
+	void setLevel(int level);
+	void setMaxHP(int maxHP);
+	void setCurrentHP(int currentHP);
+	void setMinDamage(int minDamage);
+	void setMaxDamage(int maxDamage);
 };

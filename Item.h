@@ -17,4 +17,6 @@ public:
 	virtual Item* clone() const = 0;
 	const MyString& getName() const;
 	int getCost() const;
+	virtual MyString getTypeName() const = 0;
+
 };

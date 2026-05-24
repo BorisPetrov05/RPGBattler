@@ -68,11 +68,6 @@ void Character::UseAbility(int& damage)
 	//Do Nothing, to be derived 
 }
 
-Character* Character::clone() const
-{
-	return new Character(*this);
-}
-
 //Getters
 
 const MyString& Character::getName() const
@@ -108,4 +103,31 @@ int Character::getMinDamage() const
 int Character::getMaxDamage() const
 {
 	return maxDamage;
+}
+
+//Setters
+
+void Character::setLevel(int level)
+{
+	this->level = level;
+}
+
+void Character::setMaxHP(int maxHP)
+{
+	this->maxHP = maxHP;
+}
+
+void Character::setCurrentHP(int currentHP)
+{
+	this->currentHP = currentHP;
+}
+
+void Character::setMinDamage(int minDamage)
+{
+	this->minDamage = minDamage;
+}
+
+void Character::setMaxDamage(int maxDamage)
+{
+	this->maxDamage = maxDamage;
 }
