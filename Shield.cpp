@@ -4,9 +4,9 @@ Shield::Shield() : Item("Shield", 100)
 {
 }
 
-void Shield::use(Character& user, Character& enemy, BattleContext& context)
+void Shield::use(Character& user, Character& enemy, BattleContext& userContext, BattleContext& enemyContext)
 {
-	context.shieldActive = true;
+	userContext.shieldActive = true;
 }
 
 Item* Shield::clone() const

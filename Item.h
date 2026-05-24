@@ -13,7 +13,7 @@ public:
 	Item(const MyString& name, int cost);
 	virtual ~Item() = default;
 
-	virtual void use(Character& user, Character& enemy, BattleContext& context) = 0;
+	virtual void use(Character& user, Character& enemy, BattleContext& userContext, BattleContext& enemyContext) = 0;
 	virtual Item* clone() const = 0;
 	const MyString& getName() const;
 	int getCost() const;

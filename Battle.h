@@ -9,6 +9,7 @@ private:
 	Character* character1;
 	Character* character2;
 	int currentTurn;
+	bool lastItemConsumesTurn = true;
 
 	BattleContext context1;
 	BattleContext context2;
@@ -16,7 +17,7 @@ private:
 public:
 	Battle(User* player1, User* player2);
 
-	void chooseCharacters();
+	void setCharacters(Character* first, Character* second);
 	void attack(Character* attacker, Character* defender);
 	void performTurn();
 	void useItem(User& user, Character& userCharacter, Character& enemyCharacter);

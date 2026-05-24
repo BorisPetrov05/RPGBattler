@@ -5,7 +5,7 @@ HealingPotion::HealingPotion() : Item("Healing Potion", 30)
 {
 }
 
-void HealingPotion::use(Character& user, Character& enemy, BattleContext& context)
+void HealingPotion::use(Character& user, Character& enemy, BattleContext& userContext, BattleContext& enemyContext)
 {
 	int healAmount = rand() % 6 + 5; // Heal 5-10
 	user.heal(healAmount);

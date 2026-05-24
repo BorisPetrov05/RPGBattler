@@ -4,9 +4,9 @@ Sword::Sword() : Item("Sword", 50)
 {
 }
 
-void Sword::use(Character& user, Character& enemy, BattleContext& context)
+void Sword::use(Character& user, Character& enemy, BattleContext& userContext, BattleContext& enemyContext)
 {
-	context.swordActive = true;
+	userContext.swordActive = true;
 }
 
 Item* Sword::clone() const

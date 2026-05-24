@@ -34,6 +34,22 @@ void User::copyFrom(const User& other)
 	}
 }
 
+void User::moveFrom(User&& other)
+{
+	username = std::move(other.username);
+	password = std::move(other.password);
+
+	xp = other.xp;
+	battlesFought = other.battlesFought;
+	battlesWon = other.battlesWon;
+
+	characters = std::move(other.characters);
+	items = std::move(other.items);
+
+	other.xp = 0;
+	other.battlesFought = 0;
+	other.battlesWon = 0;
+}
 
 //Constructors and Destructor
 User::User()
@@ -52,13 +68,30 @@ User::User(const User& other)
 }
 
 User::User(User&& other) noexcept
-	: username(std::move(other.username)), password(std::move(other.password)),
-	xp(other.xp), battlesFought(other.battlesFought), battlesWon(other.battlesWon),
-	characters(std::move(other.characters)), items(std::move(other.items))
 {
-	other.xp = 0;
-	other.battlesFought = 0;
-	other.battlesWon = 0;
+	moveFrom(std::move(other));
+}
+
+User& User::operator=(const User& other)
+{
+	if (this != &other)
+	{
+		free();
+		copyFrom(other);
+	}
+
+	return *this;
+}
+
+User& User::operator=(User&& other) noexcept
+{
+	if (this != &other)
+	{
+		free();
+		moveFrom(std::move(other));
+	}
+
+	return *this;
 }
 
 User::~User()
@@ -94,12 +127,6 @@ Character* User::getCharacter(size_t index) const
 size_t User::getCharacterCount() const
 {
 	return characters.size();
-}
-
-Character* User::chooseCharacter() const
-{
-	if (characters.empty()) return nullptr;
-	//todo: implement character selection logic (e.g., user input)
 }
 
 //Item Management

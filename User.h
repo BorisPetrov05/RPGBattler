@@ -19,6 +19,8 @@ public:
 	User(const MyString& username, const MyString& password);
 	User(const User& other);
 	User(User&& other) noexcept;
+	User& operator=(const User& other);
+	User& operator=(User&& other) noexcept;
 	~User();
 
 	//Character Management
@@ -26,7 +28,6 @@ public:
 	void removeCharacter(size_t index);
 	Character* getCharacter(size_t index) const;
 	size_t getCharacterCount() const;
-	Character* chooseCharacter() const;
 
 	//Item Management
 	void addItem(Item* item);
@@ -52,4 +53,5 @@ public:
 	void printProfile() const;
 	void free();
 	void copyFrom(const User& other);
+	void moveFrom(User&& other);
  };

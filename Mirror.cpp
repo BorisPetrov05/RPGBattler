@@ -4,9 +4,9 @@ Mirror::Mirror() : Item("Mirror", 80)
 {
 }
 
-void Mirror::use(Character& user, Character& enemy, BattleContext& context)
+void Mirror::use(Character& user, Character& enemy, BattleContext& userContext, BattleContext& enemyContext)
 {
-	context.mirrorActive = true;
+	userContext.mirrorActive = true;
 }
 
 Item* Mirror::clone() const

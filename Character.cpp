@@ -56,6 +56,7 @@ void Character::levelUp(int choice)
 	if (choice == 0)
 	{
 		maxHP += 2;
+		currentHP += 2;
 	}
 	else if (choice == 1)
 	{

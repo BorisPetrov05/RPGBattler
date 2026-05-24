@@ -4,9 +4,9 @@ Ray::Ray() : Item("Ray", 70)
 {
 }
 
-void Ray::use(Character& user, Character& enemy, BattleContext& context)
+void Ray::use(Character& user, Character& enemy, BattleContext& userContext, BattleContext& enemyContext)
 {
-	context.mirrorActive = false;
+	enemyContext.mirrorActive = false;
 }
 
 Item* Ray::clone() const

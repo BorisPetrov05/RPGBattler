@@ -7,7 +7,7 @@ class HealingPotion : public Item
 public:
 	HealingPotion();
 	virtual ~HealingPotion() = default;
-	void use(Character& user, Character& enemy, BattleContext& context) override;
+	void use(Character& user, Character& enemy, BattleContext& userContext, BattleContext& enemyContext) override;
 	Item* clone() const override;
 	MyString getTypeName() const override { return "Healing Potion"; }
 };
