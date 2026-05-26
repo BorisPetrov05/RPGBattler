@@ -74,14 +74,21 @@ void Shop::buyCharacter(User& user)
 	switch (choice)
 	{
 	case 1:
-		ch = new Warrior("Warrior");
-		break;
 	case 2:
-		ch = new Mage("Mage");
-		break;
 	case 3:
-		ch = new Archer("Archer");
+	{
+		MyString name;
+		std::print("Enter character name: ");
+		std::cin >> name;
+
+		if (choice == 1)
+			ch = new Warrior(name);
+		else if (choice == 2)
+			ch = new Mage(name);
+		else
+			ch = new Archer(name);
 		break;
+	}
 	case 4:
 		std::println("Purchase cancelled.");
 		return;

@@ -132,3 +132,8 @@ void Character::setMaxDamage(int maxDamage)
 {
 	this->maxDamage = maxDamage;
 }
+
+void Character::setName(const MyString& name)
+{
+	this->name = name;
+}

@@ -49,4 +49,5 @@ public:
 	void setCurrentHP(int currentHP);
 	void setMinDamage(int minDamage);
 	void setMaxDamage(int maxDamage);
+	void setName(const MyString& name);
 };

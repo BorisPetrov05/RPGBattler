@@ -4,8 +4,9 @@
 #include <stdexcept>
 #include <algorithm>
 #include <utility>
+#include <iostream>
 
-class MyString 
+class MyString
 {
     char* m_data;
     std::size_t m_size;
@@ -265,4 +266,20 @@ public:
     iterator end() { return m_data + m_size; }
     const_iterator begin() const { return m_data; }
     const_iterator end() const { return m_data + m_size; }
+
+    friend std::istream& operator>>(std::istream& is, MyString& s)
+    {
+        s.clear();
+        const std::size_t bufferSize = 256;
+        char buffer[bufferSize];
+        is >> buffer;
+        s = MyString(buffer);
+        return is;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const MyString& s)
+    {
+        os << s.c_str();
+        return os;
+    }
 };

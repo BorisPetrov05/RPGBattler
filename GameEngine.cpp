@@ -237,31 +237,12 @@ void GameEngine::profileMenu() const
 		{
 		case 1:
 		{
-			std::println("Choose character to level up:");
+			std::println("Choose character to rename:");
+            MyString name;
+            std::print("Enter character name: ");
+            std::cin >> name;
 			Character* ch = chooseCharacter(currentUser);
-			if (ch)
-			{
-				std::println("1. Increase Max HP");
-				std::println("2. Increase Damage");
-				std::println("3. Cancel");
-				int levelChoice;
-				if (!(std::cin >> levelChoice))
-				{
-					std::cin.clear();
-					std::cin.ignore(10000, '\n');
-					std::println("Upgrade cancelled.");
-					break;
-				}
-				if (levelChoice == 1 || levelChoice == 2)
-				{
-					ch->levelUp(levelChoice);
-					std::println("Character upgraded!");
-				}
-				else
-				{
-					std::println("Upgrade cancelled.");
-				}
-			}
+			ch->setName(name);
 			break;
 		}
 

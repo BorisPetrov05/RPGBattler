@@ -79,10 +79,10 @@ void Battle::attack(Character* attacker, Character* defender)
 
 	}
 
-	std::println("{} attacks {} for {} damage!", attacker->getName(), defender->getName(), damage);
+	std::println("{} attacks {} for {} damage!", attacker->getName().c_str(), defender->getName().c_str(), damage);
 	if (!defender->isAlive())
 	{
-		std::println("{} has been defeated!", defender->getName());
+		std::println("{} has been defeated!", defender->getName().c_str());
 	}
 }
 
@@ -105,7 +105,7 @@ void Battle::performTurn()
 		enemyCharacter = character1;
 	}
 
-	std::println("{}'s turn:", currentPlayer->getUsername());
+	std::println("{}'s turn:", currentPlayer->getUsername().c_str());
 	std::println("1. Attack");
 	std::println("2. Use Item");
 
@@ -253,7 +253,7 @@ void Battle::start()
 	User* winner = getWinner();
 	if (winner)
 	{
-		std::println("{} wins the battle!", winner->getUsername());
+		std::println("{} wins the battle!", winner->getUsername().c_str());
 	}
 	else
 	{
