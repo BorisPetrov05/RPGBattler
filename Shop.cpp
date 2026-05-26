@@ -23,7 +23,7 @@ void Shop::showMenu(User& user)
 
 	do
 	{
-		std::println("\nWelcome to the Shop, {}! Your XP: {}", user.getUsername(), user.getXP());
+		std::println("\nWelcome to the Shop, {}! Your XP: {}", user.getUsername().c_str(), user.getXP());
 		std::println("1. Buy Character");
 		std::println("2. Buy Item");
 		std::println("3. Level Up Character");
@@ -45,6 +45,8 @@ void Shop::showMenu(User& user)
 			break;
 		default:
 			std::println("Invalid choice! Please try again.");
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
 		}
 	} while (choice!=4);
 }
@@ -85,6 +87,8 @@ void Shop::buyCharacter(User& user)
 		return;
 	default:
 		std::println("Invalid choice! Purchase cancelled.");
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
 		return;
 	}
 
@@ -156,6 +160,7 @@ void Shop::buyLevelUp(User& user)
 	if (user.getXP() < LEVEL_UP_COST)
 	{
 		std::println("Not enough XP.");
+		return;
 	}
 
 	if (user.getCharacterCount() == 0)
@@ -179,6 +184,8 @@ void Shop::buyLevelUp(User& user)
 	if (chIndex == 0 || chIndex > user.getCharacterCount())
 	{
 		std::println("Invalid choice.");
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
 		return;
 	}
 
@@ -195,9 +202,11 @@ void Shop::buyLevelUp(User& user)
 	if (upgradeChoice != 1 && upgradeChoice != 2)
 	{
 		std::println("Invalid choice.");
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
 		return;
 	}
-
+	
 	selected->levelUp(upgradeChoice - 1); //choices are 0 and 1 in levelUp function
 	user.addXP(-LEVEL_UP_COST);
 

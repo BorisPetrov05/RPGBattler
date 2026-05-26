@@ -110,8 +110,9 @@ void GameEngine::login()
     }
 
     currentUser = user;
+    MyString currentUsername = currentUser->getUsername();
 
-    std::println("Logged in as {}", currentUser->getUsername());
+    std::println("Logged in as {}", currentUsername.c_str());
 }
 
 Character* GameEngine::chooseCharacter(User* user) const
@@ -127,8 +128,8 @@ Character* GameEngine::chooseCharacter(User* user) const
 
         std::println("{}: {} ({})",
             i + 1,
-            ch->getName(),
-            ch->getTypeName());
+            ch->getName().c_str(),
+            ch->getTypeName().c_str());
     }
 
     size_t choice;
@@ -158,7 +159,7 @@ void GameEngine::battleMenu()
         if (users[i] == currentUser)
             continue;
 
-        std::println("{}: {}", shownIndex++, users[i]->getUsername());
+        std::println("{}: {}", shownIndex++, users[i]->getUsername().c_str());
     }
 
     size_t choice;
