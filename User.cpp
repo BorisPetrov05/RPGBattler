@@ -229,9 +229,11 @@ void User::printProfile() const
 	std::cout << "Win Rate: " << (getWinRate() * 100) << "%" << std::endl;
 
 	std::cout << "\n--- Characters (" << characters.size() << ") ---" << std::endl;
-	if (characters.empty()) {
+	if (characters.empty()) 
+	{
 		std::cout << "No characters yet." << std::endl;
-	} else {
+	} else 
+	{
 		for (std::size_t i = 0; i < characters.size(); ++i) {
 			Character* ch = characters[i];
 			std::cout << "[" << (i + 1) << "] " << ch->getName().c_str() 
@@ -242,9 +244,11 @@ void User::printProfile() const
 	}
 
 	std::cout << "\n--- Items (" << items.size() << ") ---" << std::endl;
-	if (items.empty()) {
+	if (items.empty()) 
+	{
 		std::cout << "No items yet." << std::endl;
-	} else {
+	} else 
+	{
 		for (std::size_t i = 0; i < items.size(); ++i) {
 			Item* item = items[i];
 			std::cout << "[" << (i + 1) << "] " << item->getName().c_str() 

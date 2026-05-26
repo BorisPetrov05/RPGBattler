@@ -131,7 +131,9 @@ void Shop::buyItem(User& user)
 		std::println("Purchase cancelled.");
 		return;
 	default:
-		std::cout << "Invalid choice.\n";
+		std::println("Invalid choice! Purchase cancelled.");
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
 		return;
 	}
 

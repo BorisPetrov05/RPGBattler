@@ -25,7 +25,7 @@ void FileManager::saveString(std::ofstream& out, const MyString& str)
 	out.write(str.c_str(), length);
 }
 
-void FileManager::saveState(const MyString& activeUsername, const MyString& activeCharacter)
+void FileManager::saveState(const MyString& activeUsername, const MyString& activeCharacter) //not functioning properly
 {
 	std::ofstream ofs(STATE_FILE, std::ios::binary);
 	if (!ofs.is_open()) return;
@@ -36,7 +36,7 @@ void FileManager::saveState(const MyString& activeUsername, const MyString& acti
 	ofs.close();
 }
 
-bool FileManager::loadState(MyString& activeUsername, MyString& activeCharacter)
+bool FileManager::loadState(MyString& activeUsername, MyString& activeCharacter) //not functioning properly
 {
 	std::ifstream ifs(STATE_FILE, std::ios::binary);
 	if (!ifs.is_open()) return false;
