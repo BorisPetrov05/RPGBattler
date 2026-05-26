@@ -1,4 +1,5 @@
 #include "User.h"
+#include <iostream>
 
 //helper functions
 void User::free()
@@ -220,5 +221,37 @@ bool User::checkPassword(const MyString& password) const
 
 void User::printProfile() const
 {
-	//todo
+	std::cout << "=== User Profile ===" << std::endl;
+	std::cout << "Username: " << username.c_str() << std::endl;
+	std::cout << "XP: " << xp << std::endl;
+	std::cout << "Battles Fought: " << battlesFought << std::endl;
+	std::cout << "Battles Won: " << battlesWon << std::endl;
+	std::cout << "Win Rate: " << (getWinRate() * 100) << "%" << std::endl;
+
+	std::cout << "\n--- Characters (" << characters.size() << ") ---" << std::endl;
+	if (characters.empty()) {
+		std::cout << "No characters yet." << std::endl;
+	} else {
+		for (std::size_t i = 0; i < characters.size(); ++i) {
+			Character* ch = characters[i];
+			std::cout << "[" << (i + 1) << "] " << ch->getName().c_str() 
+					  << " (Lvl " << ch->getLevel() << ") - " 
+					  << ch->getTypeName().c_str() 
+					  << " | HP: " << ch->getCurrentHP() << "/" << ch->getMaxHP() << std::endl;
+		}
+	}
+
+	std::cout << "\n--- Items (" << items.size() << ") ---" << std::endl;
+	if (items.empty()) {
+		std::cout << "No items yet." << std::endl;
+	} else {
+		for (std::size_t i = 0; i < items.size(); ++i) {
+			Item* item = items[i];
+			std::cout << "[" << (i + 1) << "] " << item->getName().c_str() 
+					  << " (" << item->getTypeName().c_str() << ") - Cost: " 
+					  << item->getCost() << std::endl;
+		}
+	}
+
+	std::cout << "===================" << std::endl;
 }

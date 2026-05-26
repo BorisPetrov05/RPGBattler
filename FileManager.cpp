@@ -267,7 +267,7 @@ MyVector<User*> FileManager::loadUsers()
 		}
 	}
 
-	return users;
-
 	ifs.close();
+
+	return users;
 }

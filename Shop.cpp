@@ -119,13 +119,13 @@ void Shop::buyItem(User& user)
 		item = new Sword(); cost = 50;
 		break;
 	case 3:
-		item = new Mirror(); cost = 80;
+		item = new Shield(); cost = 80;
 		break;
 	case 4:
 		item = new Ray(); cost = 70;
 		break;
 	case 5:
-		item = new Shield(); cost = 100;
+		item = new Mirror(); cost = 100;
 		break;
 	case 6:
 		std::println("Purchase cancelled.");
