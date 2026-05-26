@@ -32,6 +32,8 @@ void FileManager::saveState(const MyString& activeUsername, const MyString& acti
 
 	saveString(ofs, activeUsername);
 	saveString(ofs, activeCharacter);
+
+	ofs.close();
 }
 
 bool FileManager::loadState(MyString& activeUsername, MyString& activeCharacter)
@@ -41,7 +43,11 @@ bool FileManager::loadState(MyString& activeUsername, MyString& activeCharacter)
 
 	loadString(ifs, activeUsername);
 	loadString(ifs, activeCharacter);
+	ifs.close();
+
 	return true;
+	//function has security issues, if the file is edited manually, you can log into another user's account by changing the username in the file, 
+	// or cause crashes by putting invalid data in the file. To be fixed.
 }
 
 void FileManager::loadString(std::ifstream& in, MyString& str)
@@ -233,6 +239,8 @@ void FileManager::saveUsers(const MyVector<User*>& users)
 	{
 		saveUser(ofs, *users[i]);
 	}
+
+	ofs.close();
 }
 
 MyVector<User*> FileManager::loadUsers()
@@ -260,4 +268,6 @@ MyVector<User*> FileManager::loadUsers()
 	}
 
 	return users;
+
+	ifs.close();
 }
