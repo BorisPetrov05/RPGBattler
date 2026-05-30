@@ -7,6 +7,14 @@
 #include "FileManager.h"
 #include "Leaderboard.h"
 #include "Shop.h"
+#include "Warrior.h"
+#include "Mage.h"
+#include "Archer.h"
+#include "HealingPotion.h"
+#include "Sword.h"
+#include "Mirror.h"
+#include "Ray.h"
+#include "Shield.h"
 //when choosing who to battle, opponnent needs to log in, otherwise the battle will not start, to be fixed.
 GameEngine::GameEngine()
 {
@@ -79,9 +87,60 @@ void GameEngine::registerUser()
 	User* newUser = new User(username, password);
 	newUser->addXP(100); //Starting XP for new users
     users.push_back(newUser);
-    //todo: give free character and free item
 
+    // Offer a free character
     std::println("Account created.");
+    std::println("Choose a free character:");
+    std::println("1. Warrior");
+    std::println("2. Mage");
+    std::println("3. Archer");
+    std::println("4. Skip");
+    int choice = 0;
+    std::cin >> choice;
+    if (choice >= 1 && choice <= 3)
+    {
+        std::cout << "Enter character name: ";
+        std::cin >> buffer;
+        MyString cname = buffer;
+        Character* ch = nullptr;
+        if (choice == 1) ch = new Warrior(cname);
+        else if (choice == 2) ch = new Mage(cname);
+        else if (choice == 3) ch = new Archer(cname);
+
+        if (ch)
+        {
+            newUser->addCharacter(ch);
+            std::println("Free character added: {}", cname.c_str());
+        }
+    }
+
+    // Offer a free item
+    std::println("Choose a free item:");
+    std::println("1. HealingPotion");
+    std::println("2. Sword");
+    std::println("3. Shield");
+    std::println("4. Ray");
+    std::println("5. Mirror");
+    std::println("6. Skip");
+    int c = 0;
+    std::cin >> c;
+    Item* it = nullptr;
+    switch (c)
+    {
+    case 1: it = new HealingPotion(); break;
+    case 2: it = new Sword(); break;
+    case 3: it = new Shield(); break;
+    case 4: it = new Ray(); break;
+    case 5: it = new Mirror(); break;
+    default: break;
+    }
+    if (it)
+    {
+        newUser->addItem(it);
+        std::println("Free item added.\n");
+    }
+
+	std::println("Registration successful! You can now log in.");
 }
 
 void GameEngine::login()
@@ -236,11 +295,11 @@ void GameEngine::profileMenu() const
 		{
 		case 1:
 		{
-			std::println("Choose character to rename:");
+			std::print("Renaming a character... ");
             MyString name;
+			Character* ch = chooseCharacter(currentUser);
             std::print("Enter character name: ");
             std::cin >> name;
-			Character* ch = chooseCharacter(currentUser);
 			ch->setName(name);
 			break;
 		}
