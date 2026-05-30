@@ -7,7 +7,7 @@
 #include "FileManager.h"
 #include "Leaderboard.h"
 #include "Shop.h"
-
+//when choosing who to battle, opponnent needs to log in, otherwise the battle will not start, to be fixed.
 GameEngine::GameEngine()
 {
     loadUsers();
@@ -211,7 +211,6 @@ void GameEngine::logout()
 
 void GameEngine::profileMenu() const
 {
-	//bug: if you input string, the menu will break, to be fixed.
 	if (!currentUser)
 		return;
 

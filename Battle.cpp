@@ -24,9 +24,10 @@ void Battle::attack(Character* attacker, Character* defender)
 
 	int damage = attacker->attack();
 
+	//Shield blocks damage entirely, then deactivates
 	if (defenderContext.shieldActive)
 	{
-		std::println("{} blocked the attack with Shield!", defender->getName());
+		std::println("{} blocked the attack with Shield!", defender->getName().c_str());
 
 		defenderContext.shieldActive = false;
 
@@ -35,8 +36,10 @@ void Battle::attack(Character* attacker, Character* defender)
 
 	bool abilityBlocked = defenderContext.mirrorActive && !attackerContext.rayActive;
 
+	//if not blocked, apply abilities, items and damage
 	if(!abilityBlocked)
 	{
+		//Items
 		if (attackerContext.rayActive)
 		{
 			std::println("Ray blocked the mirror!");
@@ -50,9 +53,9 @@ void Battle::attack(Character* attacker, Character* defender)
 		}
 
 		bool abilityBlocked =
-			defenderContext.mirrorActive &&
-			!attackerContext.rayActive;
+			defenderContext.mirrorActive && !attackerContext.rayActive;
 
+		//Abilities
 		if (!abilityBlocked)
 		{
 			if (defender->getType() == CharacterType::Warrior)
@@ -79,6 +82,7 @@ void Battle::attack(Character* attacker, Character* defender)
 
 	}
 
+	//Finalise damage
 	std::println("{} attacks {} for {} damage!", attacker->getName().c_str(), defender->getName().c_str(), damage);
 	if (!defender->isAlive())
 	{
@@ -92,6 +96,7 @@ void Battle::performTurn()
 	Character* currentCharacter;
 	Character* enemyCharacter;
 
+	//Current player is determined by currentTurn, which increments after each turn. Even = player1, Odd = player2
 	if (currentTurn % 2 == 0)
 	{
 		currentPlayer = player1;
@@ -174,14 +179,15 @@ void Battle::useItem(User& user, Character& userCharacter, Character& enemyChara
 		return;
 	}
 
+	//Ray and Shield do not consume turn
 	Item* item = user.getItem(choice - 1);
 	lastItemConsumesTurn = true;
 
-	if (dynamic_cast<Shield*>(item) ||
-		dynamic_cast<Ray*>(item))
+	if (dynamic_cast<Shield*>(item) || dynamic_cast<Ray*>(item))
 	{
 		lastItemConsumesTurn = false;
 	}
+
 	BattleContext& userContext =
 		(&user == player1) ? context1 : context2;
 

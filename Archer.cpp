@@ -2,6 +2,8 @@
 #include <print>
 #include <iostream>
 
+//Archer: HP = 15, Damage = 1-8, Level = 1 default, Ability: Double Damage
+
 Archer::Archer(const MyString& name) : Character(name, CharacterType::Archer, 15, 1, 8)
 {
 

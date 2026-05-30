@@ -6,6 +6,7 @@ Mage::Mage(const MyString& name) : Character(name, CharacterType::Mage, 12, 1, 1
 {
 }
 
+//Ability: Damage Reversal: Mage sees damage of attack, and choose to reverse it (12 becomes 0, 11 becomes 1, etc.) or not.
 void Mage::UseAbility(int& damage)
 {
 	if (damage < 1 || damage > 12)

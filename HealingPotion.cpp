@@ -1,6 +1,8 @@
 #include "HealingPotion.h"
 #include <print>
 
+//Healing Potion: Cost 30XP, Heal 5-10 HP
+
 HealingPotion::HealingPotion() : Item("Healing Potion", 30)
 {
 }

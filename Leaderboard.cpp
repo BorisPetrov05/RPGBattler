@@ -24,6 +24,7 @@ bool Leaderboard::shouldComeBefore(const User* lhs, const User* rhs) const
 	return lhs->getUsername() < rhs->getUsername();
 }
 
+//sorting users based on battles won, then XP, then win rate, then username
 void Leaderboard::sort()
 {
 	if (users.size() < 2)
@@ -60,11 +61,12 @@ void Leaderboard::update(MyVector<User*>& allUsers)
 
 void Leaderboard::display() const
 {
-	//temp, fix later
+	std::println("\n========LEADERBOARD========");
 	for (size_t i = 0; i < users.size(); i++)
 	{
 		const User* user = users[i];
 		std::println("{}: {} - Battles Won: {}, XP: {}, Win Rate: {:.2f}%",
 			i + 1, user->getUsername().c_str(), user->getBattlesWon(), user->getXP(), user->getWinRate() * 100);
 	}
+	std::println("===========================\n");
 }

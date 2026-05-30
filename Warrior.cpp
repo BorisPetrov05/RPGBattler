@@ -6,6 +6,7 @@ Warrior::Warrior(const MyString& name) : Character(name, CharacterType::Warrior,
 {
 }
 
+//Ability: Reduces damage by a random value between 1 and 4.
 void Warrior::UseAbility(int& damage) //automatic 
 {
 	int reduction = 1 + std::rand() % 4;

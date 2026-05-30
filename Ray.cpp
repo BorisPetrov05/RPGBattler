@@ -1,5 +1,7 @@
 #include "Ray.h"
 
+//Ray: Cost 70XP, cancels mirror
+
 Ray::Ray() : Item("Ray", 70)
 {
 }

@@ -1,5 +1,7 @@
 #include "Mirror.h"
 
+//Mirror: Cost 80XP, prevents opponent from using special ability
+
 Mirror::Mirror() : Item("Mirror", 80)
 {
 }

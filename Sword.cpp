@@ -1,5 +1,7 @@
 #include "Sword.h"
 
+//Sword: Cost 50XP, double damage for next attack
+
 Sword::Sword() : Item("Sword", 50)
 {
 }
