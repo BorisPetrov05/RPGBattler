@@ -15,7 +15,7 @@
 #include "Mirror.h"
 #include "Ray.h"
 #include "Shield.h"
-//when choosing who to battle, opponnent needs to log in, otherwise the battle will not start, to be fixed.
+//when choosing who to battle, opponnent needs to log in, otherwise the battle will not start, to be added.
 GameEngine::GameEngine()
 {
     loadUsers();
@@ -179,7 +179,7 @@ Character* GameEngine::chooseCharacter(User* user) const
     if (!user || user->getCharacterCount() == 0)
         return nullptr;
 
-    std::println("Choose character:");
+    std::println("{}, Choose character:", user->getUsername().c_str());
 
     for (size_t i = 0; i < user->getCharacterCount(); i++)
     {
@@ -241,6 +241,47 @@ void GameEngine::battleMenu()
 
         current++;
     }
+
+    if (!opponent)
+    {
+        std::println("Invalid opponent selection.");
+        return;
+    }
+
+    //Require the opponent to authenticate before the battle
+    {
+        const int MAX_ATTEMPTS = 3;
+        bool authenticated = false;
+        char enteredUser[256];
+        char enteredPass[256];
+
+        for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++)
+        {
+            std::println("{}, please enter your credentials to start the battle (attempt {}/{})", opponent->getUsername().c_str(), attempt, MAX_ATTEMPTS);
+            std::cout << "Username: ";
+            std::cin >> enteredUser;
+            std::cout << "Password: ";
+            std::cin >> enteredPass;
+
+            MyString enteredUsername = enteredUser;
+            if (enteredUsername == opponent->getUsername() && opponent->checkPassword(enteredPass))
+            {
+                authenticated = true;
+                break;
+            }
+            else
+            {
+                std::println("Authentication failed.");
+            }
+        }
+
+        if (!authenticated)
+        {
+            std::println("Opponent failed to authenticate. Cancelling battle.");
+            return;
+        }
+    }
+
 
     if (!opponent)
         return;
