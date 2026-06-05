@@ -58,13 +58,13 @@ void Battle::attack(Character* attacker, Character* defender)
 		//Abilities
 		if (!abilityBlocked)
 		{
+			if (attacker->getType() == CharacterType::Mage || attacker->getType() == CharacterType::Archer)
+			{
+				attacker->UseAbility(damage);
+			}
 			if (defender->getType() == CharacterType::Warrior)
 			{
 				defender->UseAbility(damage);
-			}
-			else
-			{
-				attacker->UseAbility(damage);
 			}
 		}
 		else
@@ -161,7 +161,7 @@ void Battle::useItem(User& user, Character& userCharacter, Character& enemyChara
 	std::println("Choose an item to use:");
 	for (size_t i = 0; i < user.getItemCount(); i++)
 	{
-		std::println("{}: {}", i + 1, user.getItem(i)->getName());
+		std::println("{}: {}", i + 1, user.getItem(i)->getName().c_str());
 	}
 
 	size_t choice;

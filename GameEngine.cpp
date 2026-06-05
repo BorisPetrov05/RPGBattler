@@ -15,7 +15,7 @@
 #include "Mirror.h"
 #include "Ray.h"
 #include "Shield.h"
-//when choosing who to battle, opponnent needs to log in, otherwise the battle will not start, to be added.
+
 GameEngine::GameEngine()
 {
     loadUsers();

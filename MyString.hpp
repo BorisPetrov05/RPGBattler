@@ -16,11 +16,13 @@ class MyString
 
     void ensure_capacity(std::size_t min_capacity)
     {
+        if (min_capacity == 0) min_capacity = 1;
         if (m_capacity >= min_capacity) return;
         std::size_t new_cap = m_capacity ? m_capacity : 1;
         while (new_cap < min_capacity) new_cap *= 2;
         char* buf = new char[new_cap + 1];
-        if (m_data) {
+        if (m_data) 
+        {
             std::memcpy(buf, m_data, m_size);
             delete[] m_data;
         }
@@ -42,7 +44,8 @@ public:
         if (!s) { ensure_capacity(1); return; }
         m_size = std::strlen(s);
         ensure_capacity(m_size);
-        std::memcpy(m_data, s, m_size);
+        if (m_size != 0)
+            std::memcpy(m_data, s, m_size);
         m_data[m_size] = '\0';
     }
 
@@ -119,7 +122,8 @@ public:
     {
         if (m_capacity == m_size) return;
         char* buf = new char[m_size + 1];
-        if (m_data) {
+        if (m_data) 
+        {
             std::memcpy(buf, m_data, m_size);
             delete[] m_data;
         }
