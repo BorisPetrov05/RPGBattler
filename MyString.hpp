@@ -53,7 +53,8 @@ public:
         : m_data(nullptr), m_size(other.m_size), m_capacity(0)
     {
         ensure_capacity(m_size);
-        std::memcpy(m_data, other.m_data, m_size);
+        if (m_size != 0)
+            std::memcpy(m_data, other.m_data, m_size);
         m_data[m_size] = '\0';
     }
 
@@ -75,7 +76,8 @@ public:
         if (this == &other) return *this;
         m_size = other.m_size;
         ensure_capacity(m_size);
-        std::memcpy(m_data, other.m_data, m_size);
+        if (m_size != 0)
+            std::memcpy(m_data, other.m_data, m_size);
         m_data[m_size] = '\0';
         return *this;
     }

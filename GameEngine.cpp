@@ -245,6 +245,8 @@ void GameEngine::battleMenu()
     if (!opponent)
     {
         std::println("Invalid opponent selection.");
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
         return;
     }
 
@@ -388,7 +390,8 @@ void GameEngine::userMenu()
         std::println("2. Battle");
         std::println("3. Shop");
         std::println("4. Leaderboard");
-        std::println("5. Logout");
+		std::println("5. Exit Game");
+        std::println("6. Logout");
 
         int choice;
         std::cin >> choice;
@@ -415,6 +418,22 @@ void GameEngine::userMenu()
             break;
 
         case 5:
+			std::println("Are you sure you want to exit the game? (y/n)");
+			char confirm;
+			std::cin >> confirm;
+			if (confirm == 'Y' || confirm == 'y')
+			{
+                saveUsers();
+				std::println("Exiting game. Your progress has been saved.");
+				exit(0);
+			}
+			else
+			{
+				std::println("Exit cancelled. Returning to user menu.");
+			}
+			break;
+
+        case 6:
             logout();
             return;
 

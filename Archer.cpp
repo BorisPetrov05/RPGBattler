@@ -11,8 +11,9 @@ Archer::Archer(const MyString& name) : Character(name, CharacterType::Archer, 15
 
 void Archer::UseAbility(int& damage)
 {
-	if (damage < 1 || damage > 4)
+	if (damage < 1 || damage > 4) //sword can increase damage above 4, intended, levelup doesn't increase range for ability, intended
 	{
+		//output maybe
 		return;
 	}
 

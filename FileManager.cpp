@@ -25,7 +25,7 @@ void FileManager::saveString(std::ofstream& out, const MyString& str)
 	out.write(str.c_str(), length);
 }
 
-void FileManager::saveState(const MyString& activeUsername, const MyString& activeCharacter) //not functioning properly
+void FileManager::saveState(const MyString& activeUsername, const MyString& activeCharacter)
 {
 	std::ofstream ofs(STATE_FILE, std::ios::binary);
 	if (!ofs.is_open()) return;
@@ -36,7 +36,7 @@ void FileManager::saveState(const MyString& activeUsername, const MyString& acti
 	ofs.close();
 }
 
-bool FileManager::loadState(MyString& activeUsername, MyString& activeCharacter) //not functioning properly
+bool FileManager::loadState(MyString& activeUsername, MyString& activeCharacter)
 {
 	std::ifstream ifs(STATE_FILE, std::ios::binary);
 	if (!ifs.is_open()) return false;
@@ -47,7 +47,7 @@ bool FileManager::loadState(MyString& activeUsername, MyString& activeCharacter)
 
 	return true;
 	//function has security issues, if the file is edited manually, you can log into another user's account by changing the username in the file, 
-	// or cause crashes by putting invalid data in the file. To be fixed.
+	// For now state cant be loaded it isn't saved properly, user is forced to log out before saving state. To be fixed.
 }
 
 void FileManager::loadString(std::ifstream& in, MyString& str)
