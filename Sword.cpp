@@ -2,7 +2,9 @@
 
 //Sword: Cost 50XP, double damage for next attack
 
-Sword::Sword() : Item("Sword", 50)
+const int COST = 50;
+
+Sword::Sword() : Item("Sword", COST)
 {
 }
 

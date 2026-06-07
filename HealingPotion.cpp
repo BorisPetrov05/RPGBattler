@@ -1,9 +1,12 @@
 #include "HealingPotion.h"
+#include <cstdlib>
 #include <print>
 
 //Healing Potion: Cost 30XP, Heal 5-10 HP
 
-HealingPotion::HealingPotion() : Item("Healing Potion", 30)
+const int COST = 30;
+
+HealingPotion::HealingPotion() : Item("Healing Potion", COST)
 {
 }
 

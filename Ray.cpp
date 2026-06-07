@@ -2,7 +2,9 @@
 
 //Ray: Cost 70XP, cancels mirror
 
-Ray::Ray() : Item("Ray", 70)
+const int COST = 70;
+
+Ray::Ray() : Item("Ray", COST)
 {
 }
 

@@ -1,51 +1,49 @@
 #pragma once
-#include <utility>
 #include <iostream>
-#include <stdexcept>
 
 template <typename T>
 class MyVector
 {
 public:
     MyVector()
-        : m_data(nullptr), m_size(0), m_capacity(0)
+        : data_(nullptr), size_(0), capacity_(0)
     {
     }
 
     MyVector(size_t count, const T& value = T())
-        : m_data(nullptr), m_size(0), m_capacity(0)
+        : data_(nullptr), size_(0), capacity_(0)
     {
         reserve(count);
         for (size_t i = 0; i < count; ++i)
         {
-            new (m_data + i) T(value);
+            new (data_ + i) T(value);
         }
-        m_size = count;
+        size_ = count;
     }
 
     MyVector(const MyVector& other)
-        : m_data(nullptr), m_size(0), m_capacity(0)
+        : data_(nullptr), size_(0), capacity_(0)
     {
-        reserve(other.m_size);
-        for (size_t i = 0; i < other.m_size; ++i)
+        reserve(other.size_);
+        for (size_t i = 0; i < other.size_; ++i)
         {
-            new (m_data + i) T(other.m_data[i]);
+            new (data_ + i) T(other.data_[i]);
         }
-        m_size = other.m_size;
+        size_ = other.size_;
     }
 
     MyVector(MyVector&& other) noexcept
-        : m_data(other.m_data), m_size(other.m_size), m_capacity(other.m_capacity)
+        : data_(other.data_), size_(other.size_), capacity_(other.capacity_)
     {
-        other.m_data = nullptr;
-        other.m_size = 0;
-        other.m_capacity = 0;
+        other.data_ = nullptr;
+        other.size_ = 0;
+        other.capacity_ = 0;
     }
 
     ~MyVector()
     {
         clear();
-        ::operator delete(m_data);
+        ::operator delete(data_);
     }
 
     MyVector& operator=(const MyVector& other)
@@ -53,12 +51,12 @@ public:
         if (this != &other)
         {
             clear();
-            reserve(other.m_size);
-            for (size_t i = 0; i < other.m_size; ++i)
+            reserve(other.size_);
+            for (size_t i = 0; i < other.size_; ++i)
             {
-                new (m_data + i) T(other.m_data[i]);
+                new (data_ + i) T(other.data_[i]);
             }
-            m_size = other.m_size;
+            size_ = other.size_;
         }
         return *this;
     }
@@ -68,104 +66,104 @@ public:
         if (this != &other)
         {
             clear();
-            ::operator delete(m_data);
+            ::operator delete(data_);
 
-            m_data = other.m_data;
-            m_size = other.m_size;
-            m_capacity = other.m_capacity;
+            data_ = other.data_;
+            size_ = other.size_;
+            capacity_ = other.capacity_;
 
-            other.m_data = nullptr;
-            other.m_size = 0;
-            other.m_capacity = 0;
+            other.data_ = nullptr;
+            other.size_ = 0;
+            other.capacity_ = 0;
         }
         return *this;
     }
 
     T& operator[](size_t index)
     {
-        return m_data[index];
+        return data_[index];
     }
 
     const T& operator[](size_t index) const
     {
-        return m_data[index];
+        return data_[index];
     }
 
     void push_back(const T& value)
     {
-        if (m_size == m_capacity)
+        if (size_ == capacity_)
         {
-            reserve(m_capacity == 0 ? 1 : m_capacity * 2);
+            reserve(capacity_ == 0 ? 1 : capacity_ * 2);
         }
-        new (m_data + m_size) T(value);
-        ++m_size;
+        new (data_ + size_) T(value);
+        ++size_;
     }
 
     void push_back(T&& value)
     {
-        if (m_size == m_capacity)
+        if (size_ == capacity_)
         {
-            reserve(m_capacity == 0 ? 1 : m_capacity * 2);
+            reserve(capacity_ == 0 ? 1 : capacity_ * 2);
         }
-        new (m_data + m_size) T(std::move(value));
-        ++m_size;
+        new (data_ + size_) T(std::move(value));
+        ++size_;
     }
 
     void pop_back()
     {
-        if (m_size == 0)
+        if (size_ == 0)
             return;
-        m_data[m_size - 1].~T();
-        --m_size;
+        data_[size_ - 1].~T();
+        --size_;
     }
 
     size_t size() const
     {
-        return m_size;
+        return size_;
     }
 
     size_t capacity() const
     {
-        return m_capacity;
+        return capacity_;
     }
 
     bool empty() const
     {
-        return m_size == 0;
+        return size_ == 0;
     }
 
 private:
     void reserve(size_t new_cap)
     {
-        if (new_cap <= m_capacity)
+        if (new_cap <= capacity_)
             return;
 
         T* new_data = static_cast<T*>(::operator new(sizeof(T) * new_cap));
 
-        for (size_t i = 0; i < m_size; ++i)
+        for (size_t i = 0; i < size_; ++i)
         {
-            new (new_data + i) T(std::move(m_data[i]));
-            m_data[i].~T();
+            new (new_data + i) T(std::move(data_[i]));
+            data_[i].~T();
         }
 
-        ::operator delete(m_data);
-        m_data = new_data;
-        m_capacity = new_cap;
+        ::operator delete(data_);
+        data_ = new_data;
+        capacity_ = new_cap;
     }
 
 public:
     void clear()
     {
-        for (size_t i = 0; i < m_size; ++i)
+        for (size_t i = 0; i < size_; ++i)
         {
-            m_data[i].~T();
+            data_[i].~T();
         }
-        m_size = 0;
+        size_ = 0;
     }
 
 private:
-    T* m_data;
-    size_t m_size;
-    size_t m_capacity;
+    T* data_;
+    size_t size_;
+    size_t capacity_;
 };
 

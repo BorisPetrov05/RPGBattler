@@ -2,7 +2,9 @@
 
 //Shield: Cost 100XP, reduces damage from opponent's next attack by half
 
-Shield::Shield() : Item("Shield", 100)
+const int COST = 100;
+
+Shield::Shield() : Item("Shield", COST)
 {
 }
 

@@ -46,8 +46,8 @@ bool FileManager::loadState(MyString& activeUsername, MyString& activeCharacter)
 	ifs.close();
 
 	return true;
-	//function has security issues, if the file is edited manually, you can log into another user's account by changing the username in the file, 
-	// For now state cant be loaded it isn't saved properly, user is forced to log out before saving state. To be fixed.
+	//function has security issues, if the file is edited manually, you can log into another user's account by changing the username in the file.
+	//To be fixed.
 }
 
 void FileManager::loadString(std::ifstream& in, MyString& str)

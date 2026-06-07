@@ -2,7 +2,11 @@
 #include <print>
 #include <iostream>
 
-Mage::Mage(const MyString& name) : Character(name, CharacterType::Mage, 12, 1, 12)
+const int MAGE_HP = 15;
+const int MIN_DAMAGE = 1;
+const int MAX_DAMAGE = 12;
+
+Mage::Mage(const MyString& name) : Character(name, CharacterType::Mage, MAGE_HP, MIN_DAMAGE, MAX_DAMAGE)
 {
 }
 
@@ -20,7 +24,7 @@ void Mage::UseAbility(int& damage)
 	std::cin >> choice;
 	if (choice == 'y' || choice == 'Y')
 	{
-		damage = 12 - damage; //Reverse damage
+		damage = MAX_DAMAGE - damage; //Reverse damage
 		std::println("Reversed damage: {}", damage);
 	}
 }

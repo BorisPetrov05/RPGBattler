@@ -16,6 +16,10 @@
 #include "Ray.h"
 #include "Shield.h"
 
+const int BUFFER_SIZE = 256;
+const int MAX_LOGIN_ATTEMPTS = 3;
+
+
 GameEngine::GameEngine()
 {
     loadUsers();
@@ -88,7 +92,7 @@ void GameEngine::registerUser()
 	newUser->addXP(100); //Starting XP for new users
     users.push_back(newUser);
 
-    // Offer a free character
+    //Offer a free character
     std::println("Account created.");
     std::println("Choose a free character:");
     std::println("1. Warrior");
@@ -114,7 +118,7 @@ void GameEngine::registerUser()
         }
     }
 
-    // Offer a free item
+    //Offer a free item
     std::println("Choose a free item:");
     std::println("1. HealingPotion");
     std::println("2. Sword");
@@ -145,8 +149,8 @@ void GameEngine::registerUser()
 
 void GameEngine::login()
 {
-    char usernameBuffer[256];
-    char passwordBuffer[256];
+    char usernameBuffer[BUFFER_SIZE];
+    char passwordBuffer[BUFFER_SIZE];
 
     std::cout << "Username: ";
     std::cin >> usernameBuffer;
@@ -252,14 +256,14 @@ void GameEngine::battleMenu()
 
     //Require the opponent to authenticate before the battle
     {
-        const int MAX_ATTEMPTS = 3;
         bool authenticated = false;
-        char enteredUser[256];
-        char enteredPass[256];
+        char enteredUser[BUFFER_SIZE];
+        char enteredPass[BUFFER_SIZE];
 
-        for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++)
+        for (int attempt = 1; attempt <= MAX_LOGIN_ATTEMPTS; attempt++)
         {
-            std::println("{}, please enter your credentials to start the battle (attempt {}/{})", opponent->getUsername().c_str(), attempt, MAX_ATTEMPTS);
+            std::println("{}, please enter your credentials to start the battle (attempt {}/{})", 
+                         opponent->getUsername().c_str(), attempt, MAX_LOGIN_ATTEMPTS);
             std::cout << "Username: ";
             std::cin >> enteredUser;
             std::cout << "Password: ";
@@ -284,9 +288,7 @@ void GameEngine::battleMenu()
         }
     }
 
-
-    if (!opponent)
-        return;
+    if (!opponent) return;
 
     Character* myChar = chooseCharacter(currentUser);
     Character* enemyChar = chooseCharacter(opponent);

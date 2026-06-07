@@ -4,7 +4,11 @@
 
 //Archer: HP = 15, Damage = 1-8, Level = 1 default, Ability: Double Damage
 
-Archer::Archer(const MyString& name) : Character(name, CharacterType::Archer, 15, 1, 8)
+const int ARCHER_HP = 15;
+const int MIN_DAMAGE = 1;
+const int MAX_DAMAGE = 8;
+
+Archer::Archer(const MyString& name) : Character(name, CharacterType::Archer, ARCHER_HP, MIN_DAMAGE, MAX_DAMAGE)
 {
 
 }

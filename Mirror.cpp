@@ -2,7 +2,9 @@
 
 //Mirror: Cost 80XP, prevents opponent from using special ability
 
-Mirror::Mirror() : Item("Mirror", 80)
+const int COST = 80;
+
+Mirror::Mirror() : Item("Mirror", COST)
 {
 }
 

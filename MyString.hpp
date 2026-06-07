@@ -1,171 +1,194 @@
 #pragma once
-
-#include <cstring>
-#include <stdexcept>
-#include <algorithm>
-#include <utility>
 #include <iostream>
 
 class MyString
 {
-    char* m_data;
-    std::size_t m_size;
-    std::size_t m_capacity;
+    char* data_;
+    std::size_t size_;
+    std::size_t capacity_;
 
     static std::size_t max_size(std::size_t a, std::size_t b) { return a < b ? b : a; }
 
     void ensure_capacity(std::size_t min_capacity)
     {
         if (min_capacity == 0) min_capacity = 1;
-        if (m_capacity >= min_capacity) return;
-        std::size_t new_cap = m_capacity ? m_capacity : 1;
+        if (capacity_ >= min_capacity) return;
+
+        std::size_t new_cap = capacity_ ? capacity_ : 1;
+
         while (new_cap < min_capacity) new_cap *= 2;
+
         char* buf = new char[new_cap + 1];
-        if (m_data) 
+        if (data_) 
         {
-            std::memcpy(buf, m_data, m_size);
-            delete[] m_data;
+            std::memcpy(buf, data_, size_);
+            delete[] data_;
         }
-        m_data = buf;
-        m_capacity = new_cap;
-        m_data[m_size] = '\0';
+
+        data_ = buf;
+        capacity_ = new_cap;
+        data_[size_] = '\0';
     }
 
 public:
-    MyString()
-        : m_data(nullptr), m_size(0), m_capacity(0)
+    MyString() : data_(nullptr), size_(0), capacity_(0)
     {
         ensure_capacity(1);
     }
 
-    MyString(const char* s)
-        : m_data(nullptr), m_size(0), m_capacity(0)
+    MyString(const char* s) : data_(nullptr), size_(0), capacity_(0)
     {
-        if (!s) { ensure_capacity(1); return; }
-        m_size = std::strlen(s);
-        ensure_capacity(m_size);
-        if (m_size != 0)
-            std::memcpy(m_data, s, m_size);
-        m_data[m_size] = '\0';
+        if (!s) 
+        { 
+            ensure_capacity(1); 
+            return; 
+        }
+
+        size_ = std::strlen(s);
+        ensure_capacity(size_);
+
+        if (size_ != 0)
+            std::memcpy(data_, s, size_);
+
+        data_[size_] = '\0';
     }
 
     MyString(const MyString& other)
-        : m_data(nullptr), m_size(other.m_size), m_capacity(0)
+        : data_(nullptr), size_(other.size_), capacity_(0)
     {
-        ensure_capacity(m_size);
-        if (m_size != 0)
-            std::memcpy(m_data, other.m_data, m_size);
-        m_data[m_size] = '\0';
+        ensure_capacity(size_);
+
+        if (size_ != 0)
+            std::memcpy(data_, other.data_, size_);
+
+        data_[size_] = '\0';
     }
 
-    MyString(MyString&& other) noexcept
-        : m_data(other.m_data), m_size(other.m_size), m_capacity(other.m_capacity)
+    MyString(MyString&& other) noexcept 
+        : data_(other.data_), size_(other.size_), capacity_(other.capacity_)
     {
-        other.m_data = nullptr;
-        other.m_size = 0;
-        other.m_capacity = 0;
+        other.data_ = nullptr;
+        other.size_ = 0;
+        other.capacity_ = 0;
     }
 
     ~MyString()
     {
-        delete[] m_data;
+        delete[] data_;
     }
 
     MyString& operator=(const MyString& other)
     {
         if (this == &other) return *this;
-        m_size = other.m_size;
-        ensure_capacity(m_size);
-        if (m_size != 0)
-            std::memcpy(m_data, other.m_data, m_size);
-        m_data[m_size] = '\0';
+
+        size_ = other.size_;
+        ensure_capacity(size_);
+
+        if (size_ != 0)
+            std::memcpy(data_, other.data_, size_);
+
+        data_[size_] = '\0';
         return *this;
     }
 
     MyString& operator=(MyString&& other) noexcept
     {
         if (this == &other) return *this;
-        delete[] m_data;
-        m_data = other.m_data;
-        m_size = other.m_size;
-        m_capacity = other.m_capacity;
-        other.m_data = nullptr;
-        other.m_size = 0;
-        other.m_capacity = 0;
+
+        delete[] data_;
+        data_ = other.data_;
+        size_ = other.size_;
+        capacity_ = other.capacity_;
+
+        other.data_ = nullptr;
+        other.size_ = 0;
+        other.capacity_ = 0;
+
         return *this;
     }
 
-    std::size_t size() const { return m_size; }
-    std::size_t length() const { return m_size; }
-    bool empty() const { return m_size == 0; }
-    const char* c_str() const { return m_data ? m_data : ""; }
+    std::size_t size() const { return size_; }
+    std::size_t length() const { return size_; }
+    bool empty() const { return size_ == 0; }
+    const char* c_str() const { return data_ ? data_ : ""; }
     const char* data() const { return c_str(); }
-    std::size_t capacity() const { return m_capacity; }
+    std::size_t capacity() const { return capacity_; }
 
     char& operator[](std::size_t i)
     {
-        if (i >= m_size) throw std::out_of_range("MyString::operator[]");
-        return m_data[i];
+        if (i >= size_) throw std::out_of_range("MyString::operator[]");
+        return data_[i];
     }
 
     const char& operator[](std::size_t i) const
     {
-        if (i >= m_size) throw std::out_of_range("MyString::operator[]");
-        return m_data[i];
+        if (i >= size_) throw std::out_of_range("MyString::operator[]");
+        return data_[i];
     }
 
     char& at(std::size_t i) { return operator[](i); }
     const char& at(std::size_t i) const { return operator[](i); }
 
-    void clear() { m_size = 0; if (m_data) m_data[0] = '\0'; }
-    void reserve(std::size_t new_cap) { if (new_cap > m_capacity) ensure_capacity(new_cap); }
+    void clear() { size_ = 0; if (data_) data_[0] = '\0'; }
+    void reserve(std::size_t new_cap) { if (new_cap > capacity_) ensure_capacity(new_cap); }
 
     void shrink_to_fit()
     {
-        if (m_capacity == m_size) return;
-        char* buf = new char[m_size + 1];
-        if (m_data) 
+        if (capacity_ == size_) return;
+
+        char* buf = new char[size_ + 1];
+
+        if (data_) 
         {
-            std::memcpy(buf, m_data, m_size);
-            delete[] m_data;
+            std::memcpy(buf, data_, size_);
+            delete[] data_;
         }
-        m_data = buf;
-        m_capacity = m_size;
-        m_data[m_size] = '\0';
+
+        data_ = buf;
+        capacity_ = size_;
+        data_[size_] = '\0';
     }
 
     MyString& push_back(char ch)
     {
-        ensure_capacity(m_size + 1);
-        m_data[m_size++] = ch;
-        m_data[m_size] = '\0';
+        ensure_capacity(size_ + 1);
+
+        data_[size_++] = ch;
+        data_[size_] = '\0';
+
         return *this;
     }
 
     void pop_back()
     {
-        if (m_size == 0) throw std::out_of_range("pop_back on empty MyString");
-        --m_size;
-        m_data[m_size] = '\0';
+        if (size_ == 0) throw std::out_of_range("pop_back on empty MyString");
+        --size_;
+        data_[size_] = '\0';
     }
 
     MyString& append(const char* s)
     {
         if (!s) return *this;
+
         std::size_t add = std::strlen(s);
-        ensure_capacity(m_size + add);
-        std::memcpy(m_data + m_size, s, add);
-        m_size += add;
-        m_data[m_size] = '\0';
+        ensure_capacity(size_ + add);
+        std::memcpy(data_ + size_, s, add);
+
+        size_ += add;
+        data_[size_] = '\0';
+
         return *this;
     }
 
     MyString& append(const MyString& other)
     {
-        ensure_capacity(m_size + other.m_size);
-        std::memcpy(m_data + m_size, other.m_data, other.m_size);
-        m_size += other.m_size;
-        m_data[m_size] = '\0';
+        ensure_capacity(size_ + other.size_);
+
+        std::memcpy(data_ + size_, other.data_, other.size_);
+
+        size_ += other.size_;
+        data_[size_] = '\0';
+
         return *this;
     }
 
@@ -175,69 +198,86 @@ public:
 
     MyString substr(std::size_t pos = 0, std::size_t count = static_cast<std::size_t>(-1)) const
     {
-        if (pos > m_size) throw std::out_of_range("MyString::substr");
-        std::size_t rcount = (count == static_cast<std::size_t>(-1)) ? (m_size - pos) : std::min(count, m_size - pos);
+        if (pos > size_) throw std::out_of_range("MyString::substr");
+
+        std::size_t rcount = (count == static_cast<std::size_t>(-1)) ? (size_ - pos) : std::min(count, size_ - pos);
+
         MyString out;
         out.ensure_capacity(rcount);
-        out.m_size = rcount;
-        std::memcpy(out.m_data, m_data + pos, rcount);
-        out.m_data[out.m_size] = '\0';
+        out.size_ = rcount;
+
+        std::memcpy(out.data_, data_ + pos, rcount);
+        out.data_[out.size_] = '\0';
+
         return out;
     }
 
     using ptrdiff = std::ptrdiff_t;
 
-    ptrdiff find(const MyString& needle, std::size_t pos = 0) const
+    ptrdiff find(const MyString& str, std::size_t pos = 0) const
     {
-        if (needle.m_size == 0) return (pos <= m_size) ? static_cast<ptrdiff>(pos) : -1;
-        if (needle.m_size > m_size) return -1;
-        for (std::size_t i = pos; i + needle.m_size <= m_size; ++i) {
-            if (std::memcmp(m_data + i, needle.m_data, needle.m_size) == 0) return static_cast<ptrdiff>(i);
+        if (str.size_ == 0) return (pos <= size_) ? static_cast<ptrdiff>(pos) : -1;
+
+        if (str.size_ > size_) return -1;
+
+        for (std::size_t i = pos; i + str.size_ <= size_; ++i) 
+        {
+            if (std::memcmp(data_ + i, str.data_, str.size_) == 0) 
+                return static_cast<ptrdiff>(i);
         }
+
         return -1;
     }
 
     ptrdiff find(char ch, std::size_t pos = 0) const
     {
-        for (std::size_t i = pos; i < m_size; ++i) if (m_data[i] == ch) return static_cast<ptrdiff>(i);
+        for (std::size_t i = pos; i < size_; ++i) if (data_[i] == ch) return static_cast<ptrdiff>(i);
         return -1;
     }
 
     MyString& replace(std::size_t pos, std::size_t count, const MyString& repl)
     {
-        if (pos > m_size) throw std::out_of_range("MyString::replace");
-        if (count > m_size - pos) count = m_size - pos;
-        std::size_t new_size = m_size - count + repl.m_size;
+        if (pos > size_) throw std::out_of_range("MyString::replace");
+
+        if (count > size_ - pos) count = size_ - pos;
+
+        std::size_t new_size = size_ - count + repl.size_;
+
         MyString tmp;
         tmp.ensure_capacity(new_size);
         // prefix
-        tmp.m_size = pos;
-        std::memcpy(tmp.m_data, m_data, pos);
+        tmp.size_ = pos;
+        std::memcpy(tmp.data_, data_, pos);
+
         // replacement
-        std::memcpy(tmp.m_data + tmp.m_size, repl.m_data, repl.m_size);
-        tmp.m_size += repl.m_size;
+        std::memcpy(tmp.data_ + tmp.size_, repl.data_, repl.size_);
+        tmp.size_ += repl.size_;
+
         // suffix
-        std::size_t suffix = m_size - pos - count;
-        std::memcpy(tmp.m_data + tmp.m_size, m_data + pos + count, suffix);
-        tmp.m_size += suffix;
-        tmp.m_data[tmp.m_size] = '\0';
+        std::size_t suffix = size_ - pos - count;
+        std::memcpy(tmp.data_ + tmp.size_, data_ + pos + count, suffix);
+        tmp.size_ += suffix;
+        tmp.data_[tmp.size_] = '\0';
         *this = std::move(tmp);
+
         return *this;
     }
 
     int compare(const MyString& other) const
     {
-        std::size_t n = std::min(m_size, other.m_size);
+        std::size_t n = std::min(size_, other.size_);
         int r = 0;
-        if (n > 0) r = std::memcmp(m_data, other.m_data, n);
+
+        if (n > 0) r = std::memcmp(data_, other.data_, n);
         if (r != 0) return r;
-        if (m_size == other.m_size) return 0;
-        return (m_size < other.m_size) ? -1 : 1;
+        if (size_ == other.size_) return 0;
+
+        return (size_ < other.size_) ? -1 : 1;
     }
 
     bool operator==(const MyString& other) const
     {
-        return (m_size == other.m_size) && (m_size == 0 || std::memcmp(m_data, other.m_data, m_size) == 0);
+        return (size_ == other.size_) && (size_ == 0 || std::memcmp(data_, other.data_, size_) == 0);
     }
 
     bool operator!=(const MyString& other) const { return !(*this == other); }
@@ -268,18 +308,20 @@ public:
     using iterator = char*;
     using const_iterator = const char*;
 
-    iterator begin() { return m_data; }
-    iterator end() { return m_data + m_size; }
-    const_iterator begin() const { return m_data; }
-    const_iterator end() const { return m_data + m_size; }
+    iterator begin() { return data_; }
+    iterator end() { return data_ + size_; }
+    const_iterator begin() const { return data_; }
+    const_iterator end() const { return data_ + size_; }
 
     friend std::istream& operator>>(std::istream& is, MyString& s)
     {
         s.clear();
+
         const std::size_t bufferSize = 256;
         char buffer[bufferSize];
         is >> buffer;
         s = MyString(buffer);
+
         return is;
     }
 

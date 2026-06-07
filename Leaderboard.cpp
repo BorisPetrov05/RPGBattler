@@ -24,7 +24,7 @@ bool Leaderboard::shouldComeBefore(const User* lhs, const User* rhs) const
 	return lhs->getUsername() < rhs->getUsername();
 }
 
-//sorting users based on battles won, then XP, then win rate, then username
+//sorting users based on battles won, then XP, then win rate, then username, selection sort
 void Leaderboard::sort()
 {
 	if (users.size() < 2)

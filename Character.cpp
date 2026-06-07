@@ -1,5 +1,4 @@
 #include "Character.h"
-#include <cstdlib>
 
 //Constructors and Destructor
 

@@ -111,7 +111,6 @@ void User::removeCharacter(size_t index)
 	if (index >= characters.size()) return;
 
 	delete characters[index];
-	//characters.erase(index);
 	for (size_t i = index; i < characters.size()-1; i++)
 	{
 		characters[i] = characters[i + 1];
@@ -141,7 +140,6 @@ void User::removeItem(size_t index)
 {
 	if (index >= items.size()) return;
 	delete items[index];
-	//items.erase(index);
 	for (size_t i = index; i < items.size() - 1; i++)
 	{
 		items[i] = items[i + 1];
@@ -183,6 +181,8 @@ void User::incrementBattlesWon()
 {
 	battlesWon++;
 }
+
+//getters
 
 int User::getBattlesFought() const
 {

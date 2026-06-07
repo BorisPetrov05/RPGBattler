@@ -48,7 +48,7 @@ void Shop::showMenu(User& user)
 			std::cin.clear();
 			std::cin.ignore(10000, '\n');
 		}
-	} while (choice!=4);
+	} while (choice != 4);
 }
 
 void Shop::buyCharacter(User& user)
@@ -124,19 +124,19 @@ void Shop::buyItem(User& user)
 	switch (choice)
 	{
 	case 1:
-		item = new HealingPotion(); cost = 30;
+		item = new HealingPotion();
 		break;
 	case 2:
-		item = new Sword(); cost = 50;
+		item = new Sword();
 		break;
 	case 3:
-		item = new Shield(); cost = 80;
+		item = new Shield();
 		break;
 	case 4:
-		item = new Ray(); cost = 70;
+		item = new Ray();
 		break;
 	case 5:
-		item = new Mirror(); cost = 100;
+		item = new Mirror();
 		break;
 	case 6:
 		std::println("Purchase cancelled.");
@@ -148,7 +148,10 @@ void Shop::buyItem(User& user)
 		return;
 	}
 
-	if (user.getXP() < cost)
+	int currentXP = user.getXP();
+	int itemCost = item->getCost();
+
+	if (currentXP < itemCost)
 	{
 		delete item;
 		std::println("Not enough XP.");
@@ -156,7 +159,7 @@ void Shop::buyItem(User& user)
 	}
 
 	user.addItem(item);
-	user.addXP(-cost);
+	user.addXP(-itemCost);
 
 	std::println("Item purchased successfully!");
 }
