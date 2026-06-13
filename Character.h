@@ -32,7 +32,7 @@ public:
 	void resetHP();
 	bool isAlive() const;
 	void levelUp(int choice);
-	virtual void UseAbility(int& damage);
+	virtual void UseAbility(int& damage) = 0;
 	virtual Character* clone() const = 0;
 
 	const MyString& getName() const;

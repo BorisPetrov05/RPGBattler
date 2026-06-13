@@ -10,51 +10,12 @@
     <Filter Include="utils">
       <UniqueIdentifier>{2df74cb6-76d2-44c4-8fbf-3e07b8c1729b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="core\headers">
-      <UniqueIdentifier>{4cb8c092-145a-4516-9dde-75bf212fb43a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="core\cpp">
-      <UniqueIdentifier>{17c2fd47-a978-4561-adc8-112bc40dd20d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="core\cpp\Items">
+    <Filter Include="core\Items">
       <UniqueIdentifier>{68e551b3-358e-48ed-8235-d7a0d23bfa2e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="core\headers\Items">
-      <UniqueIdentifier>{ca7554f3-9326-458a-bd31-c2746aa48c9a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="User.h">
-      <Filter>core\headers</Filter>
-    </ClCompile>
-    <ClCompile Include="Archer.cpp">
-      <Filter>core\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Warrior.cpp">
-      <Filter>core\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>core\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Battle.cpp">
-      <Filter>core\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>core\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Leaderboard.cpp">
-      <Filter>core\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Mage.cpp">
-      <Filter>core\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="User.cpp">
-      <Filter>core\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Shop.cpp">
-      <Filter>core\cpp</Filter>
-    </ClCompile>
     <ClCompile Include="MyString.hpp">
       <Filter>utils</Filter>
     </ClCompile>
@@ -68,19 +29,19 @@
       <Filter>system</Filter>
     </ClCompile>
     <ClCompile Include="HealingPotion.cpp">
-      <Filter>core\cpp\Items</Filter>
+      <Filter>core\Items</Filter>
     </ClCompile>
     <ClCompile Include="Sword.cpp">
-      <Filter>core\cpp\Items</Filter>
+      <Filter>core\Items</Filter>
     </ClCompile>
     <ClCompile Include="Mirror.cpp">
-      <Filter>core\cpp\Items</Filter>
+      <Filter>core\Items</Filter>
     </ClCompile>
     <ClCompile Include="Ray.cpp">
-      <Filter>core\cpp\Items</Filter>
+      <Filter>core\Items</Filter>
     </ClCompile>
     <ClCompile Include="Shield.cpp">
-      <Filter>core\cpp\Items</Filter>
+      <Filter>core\Items</Filter>
     </ClCompile>
     <ClCompile Include="MenuSystem.cpp">
       <Filter>system</Filter>
@@ -94,55 +55,46 @@
     <ClCompile Include="AuthManager.cpp">
       <Filter>system</Filter>
     </ClCompile>
+    <ClCompile Include="Warrior.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="User.h">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Mage.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaderboard.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Archer.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Battle.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Character.h">
-      <Filter>core\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Warrior.h">
-      <Filter>core\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Mage.h">
-      <Filter>core\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Archer.h">
-      <Filter>core\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Leaderboard.h">
-      <Filter>core\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>core\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Shop.h">
-      <Filter>core\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Battle.h">
-      <Filter>core\headers</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngine.h">
       <Filter>system</Filter>
     </ClInclude>
     <ClInclude Include="FileManager.h">
       <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="HealingPotion.h">
-      <Filter>core\headers\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Sword.h">
-      <Filter>core\headers\Items</Filter>
-    </ClInclude>
     <ClInclude Include="BattleContext.h">
       <Filter>utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Mirror.h">
-      <Filter>core\headers\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Ray.h">
-      <Filter>core\headers\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Shield.h">
-      <Filter>core\headers\Items</Filter>
     </ClInclude>
     <ClInclude Include="MenuSystem.h">
       <Filter>system</Filter>
@@ -155,6 +107,45 @@
     </ClInclude>
     <ClInclude Include="AuthManager.h">
       <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="HealingPotion.h">
+      <Filter>core\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Mirror.h">
+      <Filter>core\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>core\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Shield.h">
+      <Filter>core\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword.h">
+      <Filter>core\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Warrior.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Mage.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaderboard.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Battle.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Archer.h">
+      <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

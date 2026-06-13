@@ -50,6 +50,11 @@ bool Character::isAlive() const
 
 void Character::levelUp(int choice)
 {
+	if (choice != 0 && choice != 1)
+	{
+		return;
+	}
+
 	level++;
 	
 	if (choice == 0)
@@ -61,11 +66,6 @@ void Character::levelUp(int choice)
 	{
 		maxDamage += 1;
 	}
-}
-
-void Character::UseAbility(int& damage)
-{
-	//Do Nothing, to be derived 
 }
 
 //Getters
