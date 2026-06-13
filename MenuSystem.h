@@ -12,6 +12,7 @@ private:
 	SessionState& session;
 	AuthManager& authManager;
 	BattleOrchestrator& battleOrchestrator;
+	bool shouldExit = false;
 
 	//Menu displays and input handling
 	void displayMainMenu() const;
@@ -22,7 +23,6 @@ private:
 	void handleProfileMenu() const;
 	void handleShopMenu() const;
 	void handleLeaderboard() const;
-	void handleExitGame() const;
 
 	//Input helpers
 	int getMenuChoice() const;
@@ -36,4 +36,7 @@ public:
 
 	//After login
 	void userMenuLoop();
+
+	//Check if user requested exit
+	bool shouldExitGame() const;
 };

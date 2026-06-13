@@ -177,28 +177,9 @@ void MenuSystem::handleLeaderboard() const
 	leaderboard.display();
 }
 
-void MenuSystem::handleExitGame() const
-{
-	std::println("Are you sure you want to exit the game? (y/n)");
-
-	char confirm = 0;
-	std::cin >> confirm;
-
-	if (confirm == 'Y' || confirm == 'y')
-	{
-		session.saveUsers();
-		std::println("Exiting game. Your progress has been saved.");
-		exit(0);
-	}
-	else
-	{
-		std::println("Exit cancelled. Returning to user menu.");
-	}
-}
-
 void MenuSystem::mainMenuLoop()
 {
-	while (!session.getCurrentUser())
+	while (!session.getCurrentUser() && !shouldExit)
 	{
 		displayMainMenu();
 
@@ -217,7 +198,8 @@ void MenuSystem::mainMenuLoop()
 		case 3:
 			session.saveUsers();
 			std::println("Goodbye!");
-			exit(0);
+			shouldExit = true;
+			return;
 
 		default:
 			std::println("Invalid choice! Please try again.");
@@ -230,7 +212,7 @@ void MenuSystem::mainMenuLoop()
 
 void MenuSystem::userMenuLoop()
 {
-	while (session.getCurrentUser())
+	while (session.getCurrentUser() && !shouldExit)
 	{
 		displayUserMenu();
 
@@ -255,8 +237,23 @@ void MenuSystem::userMenuLoop()
 			break;
 
 		case 5:
-			handleExitGame();
+		{
+			std::println("Are you sure you want to exit the game? (y/n)");
+			char confirm = 0;
+			std::cin >> confirm;
+			if (confirm == 'Y' || confirm == 'y')
+			{
+				session.saveUsers();
+				std::println("Exiting game. Your progress has been saved.");
+				shouldExit = true;
+				return;
+			}
+			else
+			{
+				std::println("Exit cancelled. Returning to user menu.");
+			}
 			break;
+		}
 
 		case 6:
 			authManager.logout();
@@ -269,4 +266,9 @@ void MenuSystem::userMenuLoop()
 			break;
 		}
 	}
+}
+
+bool MenuSystem::shouldExitGame() const
+{
+	return shouldExit;
 }

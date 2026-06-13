@@ -4,8 +4,6 @@
 #include "BattleOrchestrator.h"
 #include "MenuSystem.h"
 
-#include <iostream>
-
 GameEngine::GameEngine()
 {
 	initializeComponents();
@@ -31,7 +29,7 @@ void GameEngine::initializeComponents()
 
 void GameEngine::run()
 {
-	while (true)
+	while (!menuSystem->shouldExitGame())
 	{
 		if (!session->getCurrentUser())
 		{
