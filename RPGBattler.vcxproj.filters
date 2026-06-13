@@ -82,6 +82,18 @@
     <ClCompile Include="Shield.cpp">
       <Filter>core\cpp\Items</Filter>
     </ClCompile>
+    <ClCompile Include="MenuSystem.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="SessionState.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleOrchestrator.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="AuthManager.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -131,6 +143,18 @@
     </ClInclude>
     <ClInclude Include="Shield.h">
       <Filter>core\headers\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuSystem.h">
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionState.h">
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleOrchestrator.h">
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="AuthManager.h">
+      <Filter>system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,31 +1,21 @@
 #pragma once
 
-#include "MyVector.hpp"
-#include "User.h"
+#include <memory>
+
+class SessionState;
+class AuthManager;
+class BattleOrchestrator;
+class MenuSystem;
 
 class GameEngine
 {
 private:
-    MyVector<User*> users;
-    User* currentUser = nullptr;
+    std::unique_ptr<SessionState> session;
+    std::unique_ptr<AuthManager> authManager;
+    std::unique_ptr<BattleOrchestrator> battleOrchestrator;
+    std::unique_ptr<MenuSystem> menuSystem;
 
-    void loadUsers();
-    void saveUsers() const;
-
-    User* findUser(const MyString& username) const;
-
-    void mainMenu();
-    void userMenu();
-
-    void registerUser();
-    void login();
-    void logout();
-
-    void battleMenu();
-    void leaderboardMenu() const;
-    void profileMenu() const;
-
-    Character* chooseCharacter(User* user) const;
+    void initializeComponents();
 
 public:
     GameEngine();
