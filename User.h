@@ -46,6 +46,9 @@ public:
 	int getBattlesWon() const;
 	double getWinRate() const;
 
+	void setBattlesFought(int count);
+	void setBattlesWon(int count);
+
 	const MyString& getUsername() const;
 	const MyString& getPassword() const;
 	bool checkPassword(const MyString& password) const;

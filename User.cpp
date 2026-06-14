@@ -204,6 +204,16 @@ double User::getWinRate() const
 	return static_cast<double>(battlesWon) / battlesFought;
 }
 
+void User::setBattlesFought(int count)
+{
+	battlesFought = count;
+}
+
+void User::setBattlesWon(int count)
+{
+	battlesWon = count;
+}
+
 const MyString& User::getUsername() const
 {
 	return username;

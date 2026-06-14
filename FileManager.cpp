@@ -106,9 +106,8 @@ User* FileManager::loadUser(std::ifstream& in)
 
 	user->addXP(xp);
 
-	for (int i = 0; i < battlesFought; i++) user->incrementBattlesFought();
-
-	for (int i = 0; i < battlesWon; i++) user->incrementBattlesWon();
+	user->setBattlesFought(battlesFought);
+	user->setBattlesWon(battlesWon);
 
 	size_t characterCount;
 	in.read(reinterpret_cast<char*>(&characterCount), sizeof(characterCount));
