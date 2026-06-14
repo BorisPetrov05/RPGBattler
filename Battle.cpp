@@ -25,69 +25,74 @@ void Battle::attack(Character* attacker, Character* defender)
 
 	int damage = attacker->attack();
 
+	bool damageBlocked = false;
+
 	//Shield blocks damage entirely, then deactivates
 	if (defenderContext.shieldActive)
 	{
 		std::println("{} blocked the attack with Shield!", defender->getName().c_str());
-
 		defenderContext.shieldActive = false;
-
-		return;
+		damageBlocked = true;
 	}
-
-	bool abilityBlocked = defenderContext.mirrorActive && !attackerContext.rayActive;
-
-	//if not blocked, apply abilities, items and damage
-	if(!abilityBlocked)
+	else
 	{
-		//Items
-		if (attackerContext.rayActive)
-		{
-			std::println("Ray blocked the mirror!");
-			attackerContext.rayActive = false;
-		}
+		bool abilityBlocked = defenderContext.mirrorActive && !attackerContext.rayActive;
 
-		if (attackerContext.swordActive)
-		{
-			damage *= 2;
-			attackerContext.swordActive = false;
-		}
-
-		bool abilityBlocked =
-			defenderContext.mirrorActive && !attackerContext.rayActive;
-
-		//Abilities
+		//if not blocked, apply abilities, items and damage
 		if (!abilityBlocked)
 		{
-			if (attacker->getType() == CharacterType::Mage || attacker->getType() == CharacterType::Archer)
+			//Items
+			if (attackerContext.rayActive)
 			{
-				attacker->UseAbility(damage);
+				std::println("Ray blocked the mirror!");
+				attackerContext.rayActive = false;
 			}
-			if (defender->getType() == CharacterType::Warrior)
+
+			if (attackerContext.swordActive)
 			{
-				defender->UseAbility(damage);
+				damage *= 2;
+				attackerContext.swordActive = false;
 			}
+
+			bool abilityBlocked =
+				defenderContext.mirrorActive && !attackerContext.rayActive;
+
+			//Abilities
+			if (!abilityBlocked)
+			{
+				if (attacker->getType() == CharacterType::Mage || attacker->getType() == CharacterType::Archer)
+				{
+					attacker->UseAbility(damage);
+				}
+				if (defender->getType() == CharacterType::Warrior)
+				{
+					defender->UseAbility(damage);
+				}
+			}
+			else
+			{
+				std::println("Mirror blocked the special ability!");
+				defenderContext.mirrorActive = false;
+			}
+
+			defender->takeDamage(damage);
 		}
 		else
 		{
 			std::println("Mirror blocked the special ability!");
 			defenderContext.mirrorActive = false;
+			damageBlocked = true;
 		}
-
-		defender->takeDamage(damage);
-	}
-	else
-	{
-		std::println("Mirror blocked the special ability!");
-		defenderContext.mirrorActive = false;
-
 	}
 
 	//Finalise damage
-	std::println("{} attacks {} for {} damage!", attacker->getName().c_str(), defender->getName().c_str(), damage);
-	if (!defender->isAlive())
+	if (!damageBlocked)
 	{
-		std::println("{} has been defeated!", defender->getName().c_str());
+		std::println("{} attacks {} for {} damage!", attacker->getName().c_str(), defender->getName().c_str(), damage);
+		if (!defender->isAlive())
+		{
+			std::println("{} has been defeated!", defender->getName().c_str());
+		}
 	}
 }
 
