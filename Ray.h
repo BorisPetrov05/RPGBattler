@@ -3,7 +3,7 @@
 
 class Ray : public Item
 {
-	//cost 70XP, cancels mirror
+	//cost 70XP, cancels mirror, doesnt consume turn
 public:
 	Ray();
 
@@ -14,5 +14,7 @@ public:
 	Item* clone() const override;
 
 	MyString getTypeName() const override { return "Ray"; }
+
+	bool consumesTurn() const override { return false; }
 
 };

@@ -3,6 +3,7 @@
 
 class Shield : public Item
 {
+	//Cost 100XP, reduces damage by half, doesnt consume turn
 public:
 	Shield();
 
@@ -13,4 +14,6 @@ public:
 	Item* clone() const override;
 
 	MyString getTypeName() const override { return "Shield"; }
+
+	bool consumesTurn() const override { return false; }
 };

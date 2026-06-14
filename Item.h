@@ -19,4 +19,6 @@ public:
 	int getCost() const;
 	virtual MyString getTypeName() const = 0;
 
+	virtual bool consumesTurn() const { return true; }
+
 };

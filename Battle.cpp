@@ -54,8 +54,8 @@ void Battle::attack(Character* attacker, Character* defender)
 				attackerContext.swordActive = false;
 			}
 
-			bool abilityBlocked =
-				defenderContext.mirrorActive && !attackerContext.rayActive;
+			//Re-evaluate blocking after items
+			abilityBlocked = defenderContext.mirrorActive && !attackerContext.rayActive;
 
 			//Abilities
 			if (!abilityBlocked)
@@ -187,12 +187,8 @@ void Battle::useItem(User& user, Character& userCharacter, Character& enemyChara
 
 	//Ray and Shield do not consume turn
 	Item* item = user.getItem(choice - 1);
-	lastItemConsumesTurn = true;
 
-	if (dynamic_cast<Shield*>(item) || dynamic_cast<Ray*>(item))
-	{
-		lastItemConsumesTurn = false;
-	}
+	lastItemConsumesTurn = item->consumesTurn();
 
 	BattleContext& userContext =
 		(&user == player1) ? context1 : context2;
