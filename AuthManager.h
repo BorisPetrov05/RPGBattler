@@ -1,6 +1,6 @@
 #pragma once
 
-class SessionState;
+#include "SessionState.h"
 
 class AuthManager
 {

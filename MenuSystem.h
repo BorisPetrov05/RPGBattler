@@ -1,10 +1,10 @@
 #pragma once
 
-class User;
-class Character;
-class SessionState;
-class AuthManager;
-class BattleOrchestrator;
+#include "User.h"
+#include "Character.h"
+#include "SessionState.h"
+#include "AuthManager.h"
+#include "BattleOrchestrator.h"
 
 class MenuSystem
 {

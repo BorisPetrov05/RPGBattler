@@ -1,11 +1,10 @@
 #pragma once
 
 #include <memory>
-
-class SessionState;
-class AuthManager;
-class BattleOrchestrator;
-class MenuSystem;
+#include "SessionState.h"
+#include "AuthManager.h"
+#include "BattleOrchestrator.h"
+#include "MenuSystem.h"
 
 class GameEngine
 {

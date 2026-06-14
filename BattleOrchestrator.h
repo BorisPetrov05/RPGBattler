@@ -1,10 +1,8 @@
 #pragma once
 
-#include "MyString.hpp"
-
-class User;
-class Character;
-class SessionState;
+#include "User.h"
+#include "Character.h"
+#include "SessionState.h"
 
 class BattleOrchestrator
 {

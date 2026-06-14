@@ -1,8 +1,7 @@
 #include "Battle.h"
 #include <iostream>
 #include <print>
-#include "Shield.h"
-#include "Ray.h"
+
 //Ability usage is not well implemented, weak polymorphism
 //rand() % 2 gives either 0 or 1
 Battle::Battle(User* player1, User* player2) : player1(player1), player2(player2), character1(nullptr), character2(nullptr), currentTurn(rand() % 2)
