@@ -5,15 +5,8 @@
 #include "Character.h"
 #include "Item.h"
 
-#include "Warrior.h"
-#include "Mage.h"
-#include "Archer.h"
-
-#include "HealingPotion.h"
-#include "Mirror.h"
-#include "Ray.h"
-#include "Shield.h"
-#include "Sword.h"
+#include "CharacterFactory.h"
+#include "ItemFactory.h"
 
 const char* FileManager::USERS_FILE = "users.dat";
 const char* FileManager::STATE_FILE = "state.dat";
@@ -175,14 +168,7 @@ Character* FileManager::loadCharacter(std::ifstream& in)
 	in.read(reinterpret_cast<char*>(&minDamage), sizeof(minDamage));
 	in.read(reinterpret_cast<char*>(&maxDamage), sizeof(maxDamage));
 
-	Character* character = nullptr;
-
-	if (type == "Warrior")
-		character = new Warrior(name);
-	else if (type == "Mage")
-		character = new Mage(name);
-	else if (type == "Archer")
-		character = new Archer(name);
+	Character* character = CharacterFactory::createCharacterByName(type, name);
 
 	if (!character)
 	{
@@ -208,18 +194,7 @@ Item* FileManager::loadItem(std::ifstream& ifs)
 	MyString type;
 	loadString(ifs, type);
 
-	if (type == "HealingPotion")
-		return new HealingPotion();
-	if (type == "Sword")
-		return new Sword();
-	if (type == "Mirror")
-		return new Mirror();
-	if (type == "Ray")
-		return new Ray();
-	if (type == "Shield")
-		return new Shield();
-
-	return nullptr;
+	return ItemFactory::createItemByName(type);
 }
 
 

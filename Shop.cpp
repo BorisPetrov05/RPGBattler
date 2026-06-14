@@ -1,15 +1,8 @@
 #include "Shop.h"
 #include "User.h"
 
-#include "Warrior.h"
-#include "Mage.h"
-#include "Archer.h"
-
-#include "HealingPotion.h"
-#include "Sword.h"
-#include "Mirror.h"
-#include "Ray.h"
-#include "Shield.h"
+#include "CharacterFactory.h"
+#include "ItemFactory.h"
 
 #include <iostream>
 #include <print>
@@ -28,6 +21,8 @@ void Shop::showMenu(User& user)
 		std::println("2. Buy Item");
 		std::println("3. Level Up Character");
 		std::println("4. Exit Shop");
+
+		std::print("> ");
 		std::cin >> choice;
 
 		switch (choice)
@@ -64,38 +59,35 @@ void Shop::buyCharacter(User& user)
 	std::println("2. Mage");
 	std::println("3. Archer");
 	std::println("4. Cancel");
-	std::print("Enter choice: ");
 
 	int choice;
+	std::print("> ");
 	std::cin >> choice;
 
-	Character* ch = nullptr;
-
-	switch (choice)
+	if (choice < 1 || choice > 4)
 	{
-	case 1:
-	case 2:
-	case 3:
-	{
-		MyString name;
-		std::print("Enter character name: ");
-		std::cin >> name;
-
-		if (choice == 1)
-			ch = new Warrior(name);
-		else if (choice == 2)
-			ch = new Mage(name);
-		else
-			ch = new Archer(name);
-		break;
-	}
-	case 4:
-		std::println("Purchase cancelled.");
-		return;
-	default:
 		std::println("Invalid choice! Purchase cancelled.");
 		std::cin.clear();
 		std::cin.ignore(10000, '\n');
+		return;
+	}
+
+	if (choice == 4)
+	{
+		std::println("Purchase cancelled.");
+		return;
+	}
+
+	MyString name;
+	std::print("Enter character name: ");
+	std::cin >> name;
+
+	CharacterType type = static_cast<CharacterType>(choice - 1);
+	Character* ch = CharacterFactory::createCharacter(type, name);
+
+	if (!ch)
+	{
+		std::println("Character creation failed.");
 		return;
 	}
 
@@ -116,35 +108,29 @@ void Shop::buyItem(User& user)
 	std::println("6. Cancel");
 
 	int choice;
+	std::print("> ");
 	std::cin >> choice;
 
-	Item* item = nullptr;
-	int cost = 0;
-
-	switch (choice)
+	if (choice < 1 || choice > 6)
 	{
-	case 1:
-		item = new HealingPotion();
-		break;
-	case 2:
-		item = new Sword();
-		break;
-	case 3:
-		item = new Shield();
-		break;
-	case 4:
-		item = new Ray();
-		break;
-	case 5:
-		item = new Mirror();
-		break;
-	case 6:
-		std::println("Purchase cancelled.");
-		return;
-	default:
 		std::println("Invalid choice! Purchase cancelled.");
 		std::cin.clear();
 		std::cin.ignore(10000, '\n');
+		return;
+	}
+
+	if (choice == 6)
+	{
+		std::println("Purchase cancelled.");
+		return;
+	}
+
+	ItemType type = static_cast<ItemType>(choice - 1);
+	Item* item = ItemFactory::createItem(type);
+
+	if (!item)
+	{
+		std::println("Item creation failed.");
 		return;
 	}
 
@@ -188,7 +174,7 @@ void Shop::buyLevelUp(User& user)
 	}
 
 	size_t chIndex;
-	std::print("Enter choice: ");
+	std::print("> ");
 	std::cin >> chIndex;
 
 	if (chIndex == 0 || chIndex > user.getCharacterCount())
@@ -204,9 +190,9 @@ void Shop::buyLevelUp(User& user)
 	std::println("\nUpgrade type:");
 	std::println("1. Increase Max HP by 2");
 	std::println("2. Increase Max Damage by 1");
-	std::print("Enter choice: ");
 
 	int upgradeChoice;
+	std::print("> ");
 	std::cin >> upgradeChoice;
 
 	if (upgradeChoice != 1 && upgradeChoice != 2)

@@ -75,6 +75,5 @@ void SessionState::saveUsers() const
 
 void SessionState::cleanup()
 {
-	for (size_t i = 0; i < users.size(); ++i)
-		delete users[i];
+	for (size_t i = 0; i < users.size(); ++i) delete users[i];
 }

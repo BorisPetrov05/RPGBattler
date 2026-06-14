@@ -1,57 +1,17 @@
 #include "AuthManager.h"
 #include "SessionState.h"
-#include "FileManager.h"
-
-#include "Warrior.h"
-#include "Mage.h"
-#include "Archer.h"
-#include "HealingPotion.h"
-#include "Sword.h"
-#include "Mirror.h"
-#include "Ray.h"
-#include "Shield.h"
+#include "CharacterFactory.h"
+#include "ItemFactory.h"
 
 #include <iostream>
 #include <print>
 
+const int STARTING_XP = 100;
+const int CHARACTER_COST = 100;
 const int BUFFER_SIZE = 256;
 
 AuthManager::AuthManager(SessionState& sessionState) : session(sessionState)
 {
-}
-
-Character* AuthManager::createCharacter(int choice, const MyString& name) const
-{
-	switch (choice)
-	{
-	case 1:
-		return new Warrior(name);
-	case 2:
-		return new Mage(name);
-	case 3:
-		return new Archer(name);
-	default:
-		return nullptr;
-	}
-}
-
-Item* AuthManager::createItem(int choice) const
-{
-	switch (choice)
-	{
-	case 1:
-		return new HealingPotion();
-	case 2:
-		return new Sword();
-	case 3:
-		return new Shield();
-	case 4:
-		return new Ray();
-	case 5:
-		return new Mirror();
-	default:
-		return nullptr;
-	}
 }
 
 void AuthManager::registerUser()
@@ -75,7 +35,7 @@ void AuthManager::registerUser()
 	password = buffer;
 
 	User* newUser = new User(username, password);
-	newUser->addXP(100); //Starting XP
+	newUser->addXP(STARTING_XP); //Starting XP
 
 	std::println("Account created.");
 	std::println("Choose a free character:");
@@ -85,15 +45,17 @@ void AuthManager::registerUser()
 	std::println("4. Skip");
 
 	int charChoice = 0;
+	std::print("> ");
 	std::cin >> charChoice;
 
 	if (charChoice >= 1 && charChoice <= 3)
 	{
 		std::cout << "Enter character name: ";
 		std::cin >> buffer;
-
 		MyString charName = buffer;
-		Character* ch = createCharacter(charChoice, charName);
+
+		CharacterType type = static_cast<CharacterType>(charChoice - 1);
+		Character* ch = CharacterFactory::createCharacter(type, charName);
 
 		if (ch)
 		{
@@ -111,13 +73,18 @@ void AuthManager::registerUser()
 	std::println("6. Skip");
 
 	int itemChoice = 0;
+	std::print("> ");
 	std::cin >> itemChoice;
 
-	Item* item = createItem(itemChoice);
-	if (item)
+	if (itemChoice >= 1 && itemChoice <= 5)
 	{
-		newUser->addItem(item);
-		std::println("Free item added.");
+		ItemType type = static_cast<ItemType>(itemChoice - 1);
+		Item* item = ItemFactory::createItem(type);
+		if (item)
+		{
+			newUser->addItem(item);
+			std::println("Free item added.");
+		}
 	}
 
 	session.addUser(newUser);

@@ -35,6 +35,7 @@ User* BattleOrchestrator::selectOpponent() const
 	}
 
 	size_t choice = 0;
+	std::print("> ");
 	std::cin >> choice;
 
 	size_t current = 1;
@@ -100,6 +101,7 @@ Character* BattleOrchestrator::chooseCharacter(User* user) const
 	}
 
 	size_t choice = 0;
+	std::print("> ");
 	std::cin >> choice;
 
 	if (choice >= 1 && choice <= user->getCharacterCount())

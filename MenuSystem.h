@@ -14,7 +14,6 @@ private:
 	BattleOrchestrator& battleOrchestrator;
 	bool shouldExit = false;
 
-	//Menu displays and input handling
 	void displayMainMenu() const;
 	void displayUserMenu() const;
 	void displayProfileMenu() const;
@@ -23,6 +22,7 @@ private:
 	void handleProfileMenu() const;
 	void handleShopMenu() const;
 	void handleLeaderboard() const;
+	void handleExitGame();
 
 	//Input helpers
 	int getMenuChoice() const;
@@ -37,6 +37,5 @@ public:
 	//After login
 	void userMenuLoop();
 
-	//Check if user requested exit
 	bool shouldExitGame() const;
 };

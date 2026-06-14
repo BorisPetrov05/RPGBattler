@@ -13,6 +13,9 @@
     <Filter Include="core\Items">
       <UniqueIdentifier>{68e551b3-358e-48ed-8235-d7a0d23bfa2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="core\Factories">
+      <UniqueIdentifier>{1055a222-3144-4c7e-9fc9-3301b022366a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -52,9 +55,6 @@
     <ClCompile Include="BattleOrchestrator.cpp">
       <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="AuthManager.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
     <ClCompile Include="Warrior.cpp">
       <Filter>core</Filter>
     </ClCompile>
@@ -84,6 +84,15 @@
     </ClCompile>
     <ClCompile Include="Battle.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="AuthManager.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemFactory.cpp">
+      <Filter>core\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterFactory.cpp">
+      <Filter>core\Factories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +155,12 @@
     </ClInclude>
     <ClInclude Include="Archer.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemFactory.h">
+      <Filter>core\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterFactory.h">
+      <Filter>core\Factories</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
