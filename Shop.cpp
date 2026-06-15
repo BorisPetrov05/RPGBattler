@@ -17,9 +17,9 @@ void Shop::showMenu(User& user)
 	do
 	{
 		std::println("\nWelcome to the Shop, {}! Your XP: {}", user.getUsername().c_str(), user.getXP());
-		std::println("1. Buy Character");
+		std::println("1. Buy Character (100XP)");
 		std::println("2. Buy Item");
-		std::println("3. Level Up Character");
+		std::println("3. Level Up Character (100XP)");
 		std::println("4. Exit Shop");
 
 		std::print("> ");

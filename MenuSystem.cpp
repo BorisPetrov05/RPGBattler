@@ -24,9 +24,10 @@ void MenuSystem::displayMainMenu() const
 	std::println("3. Exit");
 }
 
-void MenuSystem::displayUserMenu() const
+void MenuSystem::displayUserMenu(User* user) const
 {
 	std::println("\n=== USER MENU ===");
+	std::println("Logged in as: {}", user->getUsername().c_str());
 	std::println("1. Profile");
 	std::println("2. Battle");
 	std::println("3. Shop");
@@ -38,8 +39,7 @@ void MenuSystem::displayUserMenu() const
 void MenuSystem::displayProfileMenu() const
 {
 	User* currentUser = session.getCurrentUser();
-	if (!currentUser)
-		return;
+	if (!currentUser) return;
 
 	currentUser->printProfile();
 	std::println("\n1. Edit Character");
@@ -63,8 +63,7 @@ int MenuSystem::getMenuChoice() const
 
 Character* MenuSystem::getCharacterSelectionFromUser(User* user) const
 {
-	if (!user || user->getCharacterCount() == 0)
-		return nullptr;
+	if (!user || user->getCharacterCount() == 0) return nullptr;
 
 	std::println("{}, choose character:", user->getUsername().c_str());
 
@@ -89,8 +88,7 @@ Character* MenuSystem::getCharacterSelectionFromUser(User* user) const
 void MenuSystem::handleProfileMenu() const
 {
 	User* currentUser = session.getCurrentUser();
-	if (!currentUser)
-		return;
+	if (!currentUser) return;
 
 	while (true)
 	{
@@ -163,8 +161,7 @@ void MenuSystem::handleProfileMenu() const
 void MenuSystem::handleShopMenu() const
 {
 	User* currentUser = session.getCurrentUser();
-	if (!currentUser)
-		return;
+	if (!currentUser) return;
 
 	Shop shop;
 	shop.showMenu(*currentUser);
@@ -232,9 +229,10 @@ void MenuSystem::mainMenuLoop()
 
 void MenuSystem::userMenuLoop()
 {
-	while (session.getCurrentUser() && !shouldExit)
+	User* currentUser = session.getCurrentUser();
+	while (currentUser && !shouldExit)
 	{
-		displayUserMenu();
+		displayUserMenu(currentUser);
 
 		int choice = getMenuChoice();
 

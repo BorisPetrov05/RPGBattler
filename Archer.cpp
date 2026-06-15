@@ -23,6 +23,7 @@ void Archer::UseAbility(int& damage)
 
 	std::println("You rolled {} damage.", damage);
 	std::println("Use Double Damage ability? (y/n)");
+	std::print("> ");
 
 	char choice;
 	std::cin >> choice;

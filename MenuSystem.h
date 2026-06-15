@@ -15,7 +15,7 @@ private:
 	bool shouldExit = false;
 
 	void displayMainMenu() const;
-	void displayUserMenu() const;
+	void displayUserMenu(User* user) const;
 	void displayProfileMenu() const;
 
 	//Sub-menu handlers

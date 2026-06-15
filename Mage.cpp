@@ -20,6 +20,8 @@ void Mage::UseAbility(int& damage)
 	}
 	std::println("You rolled {} damage.", damage);
 	std::println("Use Damage Reversal ability? (y/n)");
+	std::print("> ");
+
 	char choice;
 	std::cin >> choice;
 	if (choice == 'y' || choice == 'Y')
