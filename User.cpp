@@ -162,7 +162,12 @@ size_t User::getItemCount() const
 
 void User::addXP(int amount)
 {
-	xp += amount;
+	int newXP = xp + amount;
+
+	if (newXP < MIN_XP) newXP = MIN_XP;
+	if (newXP > MAX_XP) newXP = MAX_XP;
+
+	xp = newXP;
 }
 
 int User::getXP() const
@@ -206,11 +211,18 @@ double User::getWinRate() const
 
 void User::setBattlesFought(int count)
 {
+	if (count < 0) count = 0;
+	if (count > MAX_BATTLES) count = MAX_BATTLES;
+
 	battlesFought = count;
 }
 
 void User::setBattlesWon(int count)
 {
+	if (count < 0) count = 0;
+	if (count > MAX_BATTLES) count = MAX_BATTLES;
+	if (count > battlesFought) count = battlesFought;
+
 	battlesWon = count;
 }
 
@@ -268,4 +280,40 @@ void User::printProfile() const
 	}
 
 	std::cout << "===================" << std::endl;
+}
+
+bool User::isValidUsername(const MyString& username)
+{
+	size_t len = username.length();
+
+	if (len < MIN_USERNAME_LENGTH || len > MAX_USERNAME_LENGTH)
+	{
+		return false;
+	}
+
+	//check for whitespace usernames
+	for (size_t i = 0; i < len; i++)
+	{
+		if (username[i] != ' ')
+			return true;
+	}
+	return false;
+}
+
+bool User::isValidPassword(const MyString& password)
+{
+	size_t len = password.length();
+
+	if (len < MIN_PASSWORD_LENGTH || len > MAX_PASSWORD_LENGTH)
+	{
+		return false;
+	}
+
+	//check for whitespace passwords
+	for (size_t i = 0; i < len; i++)
+	{
+		if (password[i] != ' ')
+			return true;
+	}
+	return false;
 }

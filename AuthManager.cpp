@@ -20,19 +20,45 @@ void AuthManager::registerUser()
 	MyString password;
 	char buffer[BUFFER_SIZE];
 
-	std::cout << "Username: ";
-	std::cin >> buffer;
-	username = buffer;
-
-	if (session.findUser(username))
+	//Validate username
+	while (true)
 	{
-		std::println("User already exists!");
-		return;
+		std::print("Username: ");
+		std::cin >> buffer;
+		username = buffer;
+
+		if (!User::isValidUsername(username))
+		{
+			std::println("Username must be {}-{} characters.", 
+				MIN_USERNAME_LENGTH, MAX_USERNAME_LENGTH);
+			continue;
+		}
+
+		if (session.findUser(username))
+		{
+			std::println("User already exists!");
+			continue;
+		}
+
+		break;
 	}
 
-	std::cout << "Password: ";
-	std::cin >> buffer;
-	password = buffer;
+	//Validate password
+	while (true)
+	{
+		std::print("Password: ");
+		std::cin >> buffer;
+		password = buffer;
+
+		if (!User::isValidPassword(password))
+		{
+			std::println("Password must be {}-{} characters.", 
+				MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH);
+			continue;
+		}
+
+		break;
+	}
 
 	User* newUser = new User(username, password);
 	newUser->addXP(STARTING_XP); //Starting XP
@@ -46,7 +72,12 @@ void AuthManager::registerUser()
 
 	int charChoice = 0;
 	std::print("> ");
-	std::cin >> charChoice;
+	if (!(std::cin >> charChoice))
+	{
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		charChoice = 0;
+	}
 
 	if (charChoice >= 1 && charChoice <= 3)
 	{
@@ -54,13 +85,20 @@ void AuthManager::registerUser()
 		std::cin >> buffer;
 		MyString charName = buffer;
 
-		CharacterType type = static_cast<CharacterType>(charChoice - 1);
-		Character* ch = CharacterFactory::createCharacter(type, charName);
-
-		if (ch)
+		if (charName.length() == 0 || charName.length() > 50)
 		{
-			newUser->addCharacter(ch);
-			std::println("Free character added: {}", charName.c_str());
+			std::println("Invalid character name.");
+		}
+		else
+		{
+			CharacterType type = static_cast<CharacterType>(charChoice - 1);
+			Character* ch = CharacterFactory::createCharacter(type, charName);
+
+			if (ch)
+			{
+				newUser->addCharacter(ch);
+				std::println("Free character added: {}", charName.c_str());
+			}
 		}
 	}
 
@@ -74,7 +112,12 @@ void AuthManager::registerUser()
 
 	int itemChoice = 0;
 	std::print("> ");
-	std::cin >> itemChoice;
+	if (!(std::cin >> itemChoice))
+	{
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		itemChoice = 0;
+	}
 
 	if (itemChoice >= 1 && itemChoice <= 5)
 	{
@@ -87,6 +130,17 @@ void AuthManager::registerUser()
 		}
 	}
 
+	if (newUser->getCharacterCount() == 0)
+	{
+		std::println("No character chosen. Adding default Warrior.");
+		newUser->addCharacter(CharacterFactory::createCharacter(CharacterType::Warrior, "Warrior"));
+	}
+	if (newUser->getItemCount() == 0)
+	{
+		std::println("No item chosen. Adding default Healing Potion.");
+		newUser->addItem(ItemFactory::createItem(ItemType::HealingPotion));
+	}
+
 	session.addUser(newUser);
 	std::println("Registration successful! You can now log in.");
 }
@@ -96,10 +150,17 @@ void AuthManager::login()
 	char usernameBuffer[BUFFER_SIZE];
 	char passwordBuffer[BUFFER_SIZE];
 
-	std::cout << "Username: ";
+	std::print("Username: ");
 	std::cin >> usernameBuffer;
 
-	User* user = session.findUser(usernameBuffer);
+	MyString inputUsername = usernameBuffer;
+	if (!User::isValidUsername(inputUsername))
+	{
+		std::println("Invalid username format.");
+		return;
+	}
+
+	User* user = session.findUser(inputUsername);
 
 	if (!user)
 	{
@@ -107,8 +168,14 @@ void AuthManager::login()
 		return;
 	}
 
-	std::cout << "Password: ";
+	std::print("Password: ");
 	std::cin >> passwordBuffer;
+
+	if (!User::isValidPassword(passwordBuffer))
+	{
+		std::println("Invalid password format.");
+		return;
+	}
 
 	if (!user->checkPassword(passwordBuffer))
 	{

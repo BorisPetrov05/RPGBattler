@@ -9,10 +9,11 @@
 
 const int LEVEL_UP_COST = 100;
 const int CHARACTER_COST = 100;
+const int MAX_NAME_LENGTH = 50;
 
 void Shop::showMenu(User& user) 
 {
-	int choice;
+	int choice = -1; //-1 is invalid choice
 
 	do
 	{
@@ -23,7 +24,13 @@ void Shop::showMenu(User& user)
 		std::println("4. Exit Shop");
 
 		std::print("> ");
-		std::cin >> choice;
+		if (!(std::cin >> choice))
+		{
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::println("Invalid input!");
+			choice = -1;
+		}
 
 		switch (choice)
 		{
@@ -39,9 +46,7 @@ void Shop::showMenu(User& user)
 		case 4:
 			break;
 		default:
-			std::println("Invalid choice! Please try again.");
-			std::cin.clear();
-			std::cin.ignore(10000, '\n');
+			if (choice != -1) std::println("Invalid choice! Please try again.");
 		}
 	} while (choice != 4);
 }
@@ -60,15 +65,18 @@ void Shop::buyCharacter(User& user)
 	std::println("3. Archer");
 	std::println("4. Cancel");
 
-	int choice;
+	int choice = -1;
 	std::print("> ");
-	std::cin >> choice;
+	if (!(std::cin >> choice))
+	{
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		choice = -1;
+	}
 
 	if (choice < 1 || choice > 4)
 	{
 		std::println("Invalid choice! Purchase cancelled.");
-		std::cin.clear();
-		std::cin.ignore(10000, '\n');
 		return;
 	}
 
@@ -78,9 +86,18 @@ void Shop::buyCharacter(User& user)
 		return;
 	}
 
-	MyString name;
-	std::print("Enter character name: ");
-	std::cin >> name;
+	char name_buf[MAX_NAME_LENGTH];
+	std::println("Enter character name:");
+	std::print("> ");
+	std::cin >> name_buf;
+	MyString name = name_buf;
+
+	//Validate character name
+	if (name.length() == 0 || name.length() > 50)
+	{
+		std::println("Invalid character name. It has to be 1-50 characters.");
+		return;
+	}
 
 	CharacterType type = static_cast<CharacterType>(choice - 1);
 	Character* ch = CharacterFactory::createCharacter(type, name);
@@ -107,15 +124,19 @@ void Shop::buyItem(User& user)
 	std::println("5. Mirror (80 XP)");
 	std::println("6. Cancel");
 
-	int choice;
+	int choice = -1;
 	std::print("> ");
-	std::cin >> choice;
+
+	if (!(std::cin >> choice))
+	{
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		choice = -1;
+	}
 
 	if (choice < 1 || choice > 6)
 	{
 		std::println("Invalid choice! Purchase cancelled.");
-		std::cin.clear();
-		std::cin.ignore(10000, '\n');
 		return;
 	}
 
@@ -162,6 +183,7 @@ void Shop::buyLevelUp(User& user)
 	if (user.getCharacterCount() == 0)
 	{
 		std::println("No characters available to level up.");
+		return;
 	}
 
 	std::println("Choose character to level up:");

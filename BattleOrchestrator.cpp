@@ -36,7 +36,13 @@ User* BattleOrchestrator::selectOpponent() const
 
 	size_t choice = 0;
 	std::print("> ");
-	std::cin >> choice;
+	if (!(std::cin >> choice) || choice < 1)
+	{
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::println("Invalid opponent selection.");
+		return nullptr;
+	}
 
 	size_t current = 1;
 	for (size_t i = 0; i < users.size(); ++i)
@@ -66,12 +72,20 @@ bool BattleOrchestrator::authenticateOpponent(User* opponent) const
 	{
 		std::println("{}, please enter your credentials to start the battle (attempt {}/{})",
 					 opponent->getUsername().c_str(), attempt, MAX_OPPONENT_AUTH_ATTEMPTS);
-		std::cout << "Username: ";
+		std::print("Username: ");
 		std::cin >> enteredUser;
-		std::cout << "Password: ";
+		std::print("Password: ");
 		std::cin >> enteredPass;
 
 		MyString enteredUsername = enteredUser;
+
+		//Validate input format
+		if (!User::isValidUsername(enteredUsername) || !User::isValidPassword(enteredPass))
+		{
+			std::println("Invalid credentials format.");
+			continue;
+		}
+
 		if (enteredUsername == opponent->getUsername() && opponent->checkPassword(enteredPass))
 		{
 			return true;
@@ -88,8 +102,7 @@ bool BattleOrchestrator::authenticateOpponent(User* opponent) const
 
 Character* BattleOrchestrator::chooseCharacter(User* user) const
 {
-	if (!user || user->getCharacterCount() == 0)
-		return nullptr;
+	if (!user || user->getCharacterCount() == 0) return nullptr;
 
 	std::println("{}, choose character:", user->getUsername().c_str());
 
@@ -97,16 +110,23 @@ Character* BattleOrchestrator::chooseCharacter(User* user) const
 	{
 		Character* ch = user->getCharacter(i);
 		std::println("{}: {} ({})", i + 1, ch->getName().c_str(), ch->getTypeName().c_str());
-		//[number]: [character name] ([character type])
+		//[number]: [name] ([type])
 	}
 
 	size_t choice = 0;
 	std::print("> ");
-	std::cin >> choice;
+	if (!(std::cin >> choice))
+	{
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::println("Invalid choice.");
+		return nullptr;
+	}
 
 	if (choice >= 1 && choice <= user->getCharacterCount())
 		return user->getCharacter(choice - 1);
 
+	std::println("Invalid choice.");
 	return nullptr;
 }
 
@@ -123,8 +143,7 @@ void BattleOrchestrator::startBattle()
 	if (!opponent)
 		return;
 
-	if (!authenticateOpponent(opponent))
-		return;
+	if (!authenticateOpponent(opponent)) return;
 
 	Character* myChar = chooseCharacter(currentUser);
 	Character* enemyChar = chooseCharacter(opponent);

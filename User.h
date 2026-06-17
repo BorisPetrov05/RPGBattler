@@ -3,6 +3,14 @@
 #include "MyVector.hpp"
 #include "Item.h"
 
+const int MIN_USERNAME_LENGTH = 3;
+const int MAX_USERNAME_LENGTH = 50;
+const int MIN_PASSWORD_LENGTH = 3;
+const int MAX_PASSWORD_LENGTH = 50;
+const int MIN_XP = 0;
+const int MAX_XP = 1000000;
+const int MAX_BATTLES = 999999;
+
 class User
 {
 private:
@@ -57,4 +65,8 @@ public:
 	void free();
 	void copyFrom(const User& other);
 	void moveFrom(User&& other);
- };
+
+	static bool isValidUsername(const MyString& username);
+	static bool isValidPassword(const MyString& password);
+
+};

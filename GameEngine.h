@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include "SessionState.h"
 #include "AuthManager.h"
 #include "BattleOrchestrator.h"

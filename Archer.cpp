@@ -17,7 +17,7 @@ void Archer::UseAbility(int& damage)
 {
 	if (damage < 1 || damage > 4) //sword can increase damage above 4, intended, levelup doesn't increase range for ability, intended
 	{
-		//output maybe
+		std::println("Damage is too high for Double Damage ability!");
 		return;
 	}
 

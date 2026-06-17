@@ -15,7 +15,7 @@ void Mage::UseAbility(int& damage)
 {
 	if (damage < 1 || damage > 12) //with sword, damage can be over 12 here, intended, levelup doesn't increase range for ability, intended
 	{
-		//output maybe
+		std::println("Damage is too high for damage reversal!");
 		return;
 	}
 	std::println("You rolled {} damage.", damage);

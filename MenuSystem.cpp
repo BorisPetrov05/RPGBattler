@@ -75,14 +75,15 @@ Character* MenuSystem::getCharacterSelectionFromUser(User* user) const
 
 	size_t choice = 0;
 	std::print("> ");
-	std::cin >> choice;
-
-	if (choice >= 1 && choice <= user->getCharacterCount())
+	if (!(std::cin >> choice) || choice < 1 || choice > user->getCharacterCount())
 	{
-		return user->getCharacter(choice - 1);
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::println("Invalid choice!");
+		return nullptr;
 	}
 
-	return nullptr;
+	return user->getCharacter(choice - 1);
 }
 
 void MenuSystem::handleProfileMenu() const
@@ -127,8 +128,17 @@ void MenuSystem::handleProfileMenu() const
 			std::cout << "Enter new name: ";
 			std::cin >> nameBuf;
 			MyString newName = nameBuf;
-			currentUser->getCharacter(chIndex - 1)->setName(newName);
-			std::println("Character renamed to {}", newName.c_str());
+
+			//Validate character name
+			if (newName.length() == 0 || newName.length() > 50)
+			{
+				std::println("Invalid name length (1-50 characters).");
+			}
+			else
+			{
+				currentUser->getCharacter(chIndex - 1)->setName(newName);
+				std::println("Character renamed to {}", newName.c_str());
+			}
 			break;
 		}
 

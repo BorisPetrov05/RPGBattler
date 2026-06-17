@@ -123,7 +123,7 @@ void Battle::performTurn()
 
 	while (true)
 	{
-		std::cout << "> ";
+		std::print("> ");
 
 		if (!(std::cin >> choice))
 		{
@@ -132,8 +132,7 @@ void Battle::performTurn()
 			continue;
 		}
 
-		if (choice == 1 || choice == 2)
-			break;
+		if (choice == 1 || choice == 2) break;
 
 		std::println("Invalid choice!");
 	}
@@ -170,6 +169,7 @@ void Battle::useItem(User& user, Character& userCharacter, Character& enemyChara
 	}
 
 	size_t choice;
+	std::print("> ");
 	while (!(std::cin >> choice))
 	{
 		std::cin.clear();
